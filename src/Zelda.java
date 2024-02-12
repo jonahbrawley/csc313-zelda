@@ -65,11 +65,11 @@ public class Zelda {
 
 
         try { // IO
-            player1 = ImageIO.read( new File("res/Zelda/marioplayer.png") );
+            player1 = ImageIO.read( new File("res/Zelda/player/Link.png") );
 
 
-            OnTrack = ImageIO.read( new File("res/Zelda/largerrainbowroadsegment1.png") );
-            OffTrack = ImageIO.read( new File("res/Zelda/largerrainbowroadspace1.png") );
+            OnTrack = ImageIO.read( new File("res/Zelda/tiles/M3.png") );
+            OffTrack = ImageIO.read( new File("res/Zelda/tiles/M3.png") );
 
 
         } catch (IOException e) {
@@ -214,7 +214,7 @@ public class Zelda {
 
                 if (spacePressed && !isCollidingWithGrass(p1.getX(), p1.getY(), OffTrack)) {
                     try {
-                        player1 = ImageIO.read( new File("res/Zelda/marioplayerboosting.png") );
+                        player1 = ImageIO.read( new File("res/Zelda/tiles/M3.png") );
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -236,7 +236,7 @@ public class Zelda {
 
                 if (!spacePressed) {
                     try {
-                        player1 = ImageIO.read(new File("res/Zelda/marioplayer.png"));
+                        player1 = ImageIO.read(new File("res/Zelda/tiles/M3.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -542,8 +542,8 @@ public class Zelda {
                 System.out.println("Mario is touching right");
                 currentSegment = 10;
 
-                OnTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadSegment2.png"));
-                OffTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadspace2.png"));
+                OnTrack = ImageIO.read(new File("res/Zelda/tiles/M4.png"));
+                OffTrack = ImageIO.read(new File("res/Zelda/tiles/M4.png"));
 
 
             }
@@ -554,8 +554,8 @@ public class Zelda {
                 p1velocity = p1velocity * 0.9;
                 System.out.println("Mario is touching bottom");
                 currentSegment = 15;  // Reset to segment 1
-                OnTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadSegment3.png"));
-                OffTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadspace3.png"));
+                OnTrack = ImageIO.read(new File("res/Zelda/tiles/M5.png"));
+                OffTrack = ImageIO.read(new File("res/Zelda/tiles/M5.png"));
                 System.out.println(currentSegment);
             }
 
@@ -566,8 +566,8 @@ public class Zelda {
                 System.out.println("Mario is touching left");
                 currentSegment = 20;
 
-                OnTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadSegment4.png"));
-                OffTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadspace4.png"));
+                OnTrack = ImageIO.read(new File("res/Zelda/tiles/M3.png"));
+                OffTrack = ImageIO.read(new File("res/Zelda/tiles/M3.png"));
             }
 
 
@@ -577,8 +577,8 @@ public class Zelda {
                 System.out.println("Mario is touching top");
                 currentSegment = 5;
 
-                OnTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadsegment1.png"));
-                OffTrack = ImageIO.read(new File("res/Zelda/largerrainbowroadspace1.png"));
+                OnTrack = ImageIO.read(new File("res/Zelda/tiles/M4.png"));
+                OffTrack = ImageIO.read(new File("res/Zelda/tiles/M4.png"));
             }
 
         }
