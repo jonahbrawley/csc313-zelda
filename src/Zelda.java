@@ -58,18 +58,18 @@ public class Zelda {
 
         endgame = false;
 
-        p1width = 50; //30
-        p1height = 50; //30
+        p1width = 15; //30
+        p1height = 20; //30
         p1originalX = RESPAWN_X;
         p1originalY = RESPAWN_Y;
 
 
         try { // IO
+
+
             player1 = ImageIO.read( new File("res/Zelda/player/Link.png") );
-
-
-            OnTrack = ImageIO.read( new File("res/Zelda/tiles/M3.png") );
-            OffTrack = ImageIO.read( new File("res/Zelda/tiles/M3.png") );
+            OnTrack = ImageIO.read( new File("res/Zelda/tiles/M3Doubled.png") );
+            OffTrack = ImageIO.read( new File("res/Zelda/tiles/M3Doubledspace.png") );
 
 
         } catch (IOException e) {
@@ -214,7 +214,7 @@ public class Zelda {
 
                 if (spacePressed && !isCollidingWithGrass(p1.getX(), p1.getY(), OffTrack)) {
                     try {
-                        player1 = ImageIO.read( new File("res/Zelda/tiles/M3.png") );
+                        player1 = ImageIO.read( new File("res/Zelda/player/Link.png") );
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -236,7 +236,7 @@ public class Zelda {
 
                 if (!spacePressed) {
                     try {
-                        player1 = ImageIO.read(new File("res/Zelda/tiles/M3.png"));
+                        player1 = ImageIO.read(new File("res/Zelda/player/Link.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -268,7 +268,123 @@ public class Zelda {
 
 
 
-
+    // thread responsible for updating player movement
+//    private static class PlayerMoverplayer1 implements Runnable {
+//        public PlayerMoverplayer1() {
+//            p1velocitystep = 0.02; // aka accel
+//            p1rotatestep = 0.03; //0.03
+//            p1maxvelocity = 5;
+//            p1brakingforce = 0.04;
+//            p1nitroBoost = 4;
+//
+//        }
+//
+//        public void run() {
+//            while (!endgame) {
+//                try {
+//                    Thread.sleep(9);
+//                } catch (InterruptedException e) { }
+//
+//
+//                if (isCollidingWithGrass(p1.getX(), p1.getY(), OffTrack)) {
+//                    try {
+//                        Thread.sleep(500);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//
+//
+//                    p1.moveto(RESPAWN_X,RESPAWN_Y);
+//
+//
+//                    p1velocity = 0.0;
+//
+//
+//                } else {
+//                    p1maxvelocity = 3;
+//                    p1velocitystep = 0.02; // aka accel
+//
+//                }
+//
+//
+//                if (spacePressed == true && isCollidingWithGrass(p1.getX(), p1.getY(), OffTrack) == false) {
+//                    //CHEAT
+//                    // NITRO
+//                    if (upPressed == false) {
+//                        if (p1velocity < p1maxvelocity) {
+//                            p1velocity = (p1velocity) + p1velocitystep;
+//                        } else if (p1velocity >= p1maxvelocity) { // ensure max vel not exceeded
+//                            p1velocity = p1maxvelocity;
+//                        }
+//                    }
+//
+//
+//
+//                    p1maxvelocity += p1nitroBoost;
+//                    p1velocitystep = 0.04;
+//
+//                    double flameX = p1.getX() + (p1.getWidth() / 2.0) - nitroFlamePNGWidth / 2.0;
+//                    double flameY = p1.getY() + (p1.getHeight() / 2.0) - nitroFlamePNGHeight / 2.0;
+//                    nitroFlameX = flameX;
+//                    nitroFlameY = flameY;
+//
+//
+//                    System.out.println("BOOOOOOOST");
+//                }
+//
+//
+//                if (upPressed == true) {
+//                    if (p1velocity < p1maxvelocity) {
+//                        p1velocity = (p1velocity) + p1velocitystep;
+//                    } else if (p1velocity >= p1maxvelocity) { // ensure max vel not exceeded
+//                        p1velocity = p1maxvelocity;
+//                    }
+//                }
+//                if (downPressed == true) {
+//                    System.out.println("down IS BEING PRESSED");
+//
+//                    if (p1velocity < -1) { // ensure max rev speed
+//                        p1velocity = -1;
+//                    } else {
+//                        p1velocity = p1velocity - p1brakingforce;
+//                    }
+//                }
+//                if (leftPressed == true) {
+//                    if (p1velocity < 0) {
+//                        p1.rotate(-p1rotatestep);
+//                    } else {
+//                        p1.rotate(p1rotatestep);
+//                    }
+//                }
+//                if (rightPressed == true) {
+//                    if (p1velocity < 0) {
+//                        p1.rotate(p1rotatestep);
+//                    } else {
+//                        p1.rotate(-p1rotatestep);
+//                    }
+//                }
+//
+//                // apply drag force
+//                if (!upPressed && !downPressed && !leftPressed && !rightPressed && !spacePressed
+//                        && p1velocity != 0) {
+//                    if ((p1velocity - 0.1) < 0) {
+//                        p1velocity = 0;
+//                    } else {
+//                        p1velocity = p1velocity - 0.04;
+//                    }
+//                }
+//
+//                p1.move(-p1velocity * Math.cos(p1.getAngle() - Math.PI / 2.0),
+//                        p1velocity * Math.sin(p1.getAngle() - Math.PI / 2.0));
+//                try {
+//                    p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }
+//        private double p1velocitystep, p1rotatestep, p1maxvelocity, p1brakingforce, p1nitroBoost;
+//    }
 
 
     // thread responsible for updating player movement
@@ -353,18 +469,13 @@ public class Zelda {
                     }
                 }
                 if (leftPressed == true) {
-                    if (p1velocity < 0) {
-                        p1.rotate(-p1rotatestep);
-                    } else {
-                        p1.rotate(p1rotatestep);
-                    }
+                    p1velocity = (p1velocity) + p1velocitystep;
+                    p1.move(p1velocity,-p1velocity);
                 }
                 if (rightPressed == true) {
-                    if (p1velocity < 0) {
-                        p1.rotate(p1rotatestep);
-                    } else {
-                        p1.rotate(-p1rotatestep);
-                    }
+                    p1velocity = (p1velocity) + p1velocitystep;
+                    p1.move(-p1velocity,p1velocity);
+
                 }
 
                 // apply drag force
@@ -542,8 +653,8 @@ public class Zelda {
                 System.out.println("Mario is touching right");
                 currentSegment = 10;
 
-                OnTrack = ImageIO.read(new File("res/Zelda/tiles/M4.png"));
-                OffTrack = ImageIO.read(new File("res/Zelda/tiles/M4.png"));
+                OnTrack = ImageIO.read(new File("res/Zelda/tiles/M3.png"));
+                OffTrack = ImageIO.read(new File("res/Zelda/tiles/M3.png"));
 
 
             }
@@ -684,7 +795,7 @@ public class Zelda {
             dPressed = false;
             tabPressed = false;
 
-            p1 = new ImageObject(p1originalX, p1originalY, p1width, p1height, 4.7);
+            p1 = new ImageObject(p1originalX, p1originalY, p1width, p1height, 0);
             p1velocity = 0.0;
 
 
@@ -760,12 +871,7 @@ public class Zelda {
             g.drawString("Speed: " + String.format("%.2f", speed), x, y);
         }
     }
-    private static long startTime;
-    private static long lapStartTime;
-    private static long bestLapTime = Long.MAX_VALUE;
-    private static long currentLapTime;
     private static int lapCount = 0;
-    private static boolean lapInProgress = false;
     private static Boolean endgame;
     private static Boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, wPressed, sPressed, aPressed, dPressed, tabPressed;
     private static JButton startButton, quitButton;
@@ -777,10 +883,10 @@ public class Zelda {
     private static double p1width, p1height, p1originalX, p1originalY, p1velocity, p2width, p2height, p2originalX, p2originalY, p2velocity, nitroFlamePNGWidth, nitroFlamePNGHeight, nitroFlameX, nitroFlameY;
     private static JFrame appFrame;
     private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
-    private static double RESPAWN_X = 1001.1883469051929 ; // Set the appropriate x-coordinate
-    private static double RESPAWN_Y = 343.13283518037696; // Set the appropriate y-coordinate
-    private static final double RESPAWN_X2 = 956.1883469051929 ; // Set the appropriate x-coordinate
-    private static final double RESPAWN_Y2 = 343.13283518037696; // Set the appropriate y-coordinate
+    private static double RESPAWN_X = 130 ; // Set the appropriate x-coordinate
+    private static double RESPAWN_Y = 130; // Set the appropriate y-coordinate
+    private static final double RESPAWN_X2 = 130 ; // Set the appropriate x-coordinate
+    private static final double RESPAWN_Y2 = 130; // Set the appropriate y-coordinate
     private static BufferStrategy bs;
     private static BufferedImage OnTrack, OffTrack, player1;
 }
