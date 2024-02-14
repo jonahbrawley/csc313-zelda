@@ -122,7 +122,7 @@ public class Zelda {
 			leftPressed = false;
 			rightPressed = false;
 
-			p1 = new ImageObject(p1originalX, p1originalY, p1width, p1height, 900);
+			p1 = new ImageObject(p1originalX, p1originalY, p1width, p1height);
 
 			try { Thread.sleep(50); } catch (InterruptedException ie) { }
 
@@ -168,7 +168,7 @@ public class Zelda {
 
 				// dont draw player objects if they are "dead" (for 3 seconds)
 				if (!p1dead) {
-					g2D.drawImage(rotateImageObject(p1).filter(Link, null), (int)(p1.getX() + 0.5),
+					g2D.drawImage(affineTranform(p1).filter(player1, null), (int)(p1.getX() + 0.5),
 					(int)(p1.getY() + 0.5), null);
 				}
 
@@ -184,10 +184,7 @@ public class Zelda {
 	// updating player one movement
 	private static class PlayerOneMover implements Runnable {
 		public PlayerOneMover() {
-			velocitystep = 0.02; // aka accel
-			rotatestep = 0.03;
-			p1.maxvelocity = 2;
-			brakingforce = 0.02;
+			speed = 1;
 		}
 
 		public void run() {
@@ -197,57 +194,25 @@ public class Zelda {
 				} catch (InterruptedException e) { }
 
 				if (upPressed == true) {
-					if (p1velocity < p1.maxvelocity) {
-						p1velocity = (p1velocity) + velocitystep;
-					} else if (p1velocity >= p1.maxvelocity) { // ensure max vel not exceeded
-						p1velocity = p1.maxvelocity;
-					}
+					p1.move(0, -speed);
 				}
 
 				if (downPressed == true) {
-					if (p1velocity < -1) { // ensure max rev speed
-						p1velocity = -1;
-					} else {
-						p1velocity = p1velocity - brakingforce;
-					}
+					p1.move(0, speed);
 				}
 
 				if (leftPressed == true) {
-					if (p1velocity < 0) {
-						p1.rotate(-rotatestep);
-					} else {
-						p1.rotate(rotatestep);
-					}
+					p1.move(-speed, 0);
 				}
 
 				if (rightPressed == true) {
-					if (p1velocity < 0) {
-						p1.rotate(rotatestep);
-					} else {
-						p1.rotate(-rotatestep);
-					}
+					p1.move(speed, 0);
 				}
 
-				// apply drag force
-				if (!upPressed && !downPressed && !leftPressed && !rightPressed
-					&& p1velocity != 0) {
-					if ((p1velocity - 0.1) < 0) {
-						p1velocity = 0;
-					} else {
-						p1velocity = p1velocity - 0.04; 
-					}
-				}
-
-				p1.move(-p1velocity * Math.cos(p1.getAngle() - Math.PI / 2.0),
-					p1velocity * Math.sin(p1.getAngle() - Math.PI / 2.0));
-				try {
-					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+				p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
 			}
 		}
-		private double velocitystep, rotatestep, brakingforce;
+		private double speed;
 	}
 	// initiates key actions from panel key responses
 	private static void bindKey(JPanel panel, String input) {
@@ -400,16 +365,15 @@ public class Zelda {
     // -------- UTILITY FUNCTIONS --------
 	// moveable image objects
 	private static class ImageObject {
-		private double x, y, xwidth, yheight, angle;
+		private double x, y, xwidth, yheight;
 		public double maxvelocity;
 
 		public ImageObject(double xinput, double yinput, double xwidthinput,
-			double yheightinput, double angleinput) {
+			double yheightinput) {
 			x = xinput;
 			y = yinput;
 			xwidth = xwidthinput;
 			yheight = yheightinput;
-			angle = angleinput;
 		}
 
 		public double getX() { return x; }
@@ -420,7 +384,7 @@ public class Zelda {
 
 		public double getHeight() { return yheight; }
 
-		public double getAngle() { return angle; }
+		//public double getAngle() { return angle; }
 
 		public void move(double xinput, double yinput) {
 			x = x + xinput; 
@@ -490,25 +454,13 @@ public class Zelda {
 //            }
 
 		}
-
-		public void rotate(double input) {
-			angle = angle + input;
-			while (angle > (Math.PI*2)) { angle = angle - (Math.PI*2); }
-			while (angle < 0) { angle = angle + (Math.PI*2); }
-		}
 	}
 
 	// rotates ImageObject
-	private static AffineTransformOp rotateImageObject(ImageObject obj) {
-		AffineTransform at = AffineTransform.getRotateInstance(-obj.getAngle(),
-			obj.getWidth()/2.0, obj.getHeight()/2.0);
+	private static AffineTransformOp affineTranform(ImageObject obj) {
+		AffineTransform at = new AffineTransform();
 		AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		return atop;
-	}
-
-	private static double calculateDistance(double x1, double y1, double x2, double y2) {
-	    // Calculate Euclidean distance between two points
-	    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 	}
 
 	// -------- GLOBAL VARIABLES --------
@@ -516,7 +468,6 @@ public class Zelda {
 	private static Boolean GameOver = false;
 	private static boolean gameActive = false;
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
-	private static Boolean p1FallRecentlyPlayed = false;
 	private static Boolean p1dead = false;
 	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
 
@@ -529,7 +480,7 @@ public class Zelda {
 	private static int XOFFSET, YOFFSET, WINWIDTH, WINHEIGHT;
 
 	private static ImageObject p1;
-	private static double p1width, p1height, p1originalX, p1originalY, p1velocity;
+	private static double p1width, p1height, p1originalX, p1originalY;
 
 	private static JFrame appFrame;
 	private static GamePanel gamePanel;
