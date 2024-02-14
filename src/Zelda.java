@@ -168,7 +168,7 @@ public class Zelda {
 
 				// dont draw player objects if they are "dead" (for 3 seconds)
 				if (!p1dead) {
-					g2D.drawImage(affineTranform(p1).filter(player1, null), (int)(p1.getX() + 0.5),
+					g2D.drawImage(affineTranform(p1).filter(Link, null), (int)(p1.getX() + 0.5),
 					(int)(p1.getY() + 0.5), null);
 				}
 
@@ -209,7 +209,11 @@ public class Zelda {
 					p1.move(speed, 0);
 				}
 
-				p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+				try {
+					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 		private double speed;
@@ -396,63 +400,71 @@ public class Zelda {
 			y = yinput;
 		}
 
-		int currentSegment = 5;
+		int currentSegment = 1;
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
 
-//            if (isCollidingWithGrass(p1.getX(), p1.getY(), Barriers)) {
-//                currentSegment = 5;
-//            }
 
-			if (currentSegment == 5 && x + getWidth() > rightEdge) {
+			if (currentSegment == 1 && x + getWidth() > rightEdge) { //Done
 				moveto((leftEdge+50) - getWidth(), getY());
-				p1velocity = p1velocity * 0.9;
-				System.out.println("Mario is touching right");
-				currentSegment = 10;
-
-				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
+				System.out.println("Link is touching right");
+				currentSegment = 2;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-
-
 			}
-
-
-			if (currentSegment == 10 && y + getHeight() > bottomEdge) {
+			if (currentSegment == 1 && y + getHeight() > bottomEdge) { //Done
 				moveto(getX(), topEdge+50);
-				p1velocity = p1velocity * 0.9;
-				System.out.println("Mario is touching bottom");
-				currentSegment = 15;  // Reset to segment 1
-				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
+				System.out.println("Link is touching bottom");
+				currentSegment = 4;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-				System.out.println(currentSegment);
 			}
 
-
-			if (currentSegment == 15 && x < leftEdge+20) {
+			if (currentSegment == 2 && y + getHeight() > bottomEdge) { //Done
+				moveto(getX(), topEdge+50);
+				System.out.println("Link is touching bottom");
+				currentSegment = 3;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
+			if (currentSegment == 2 && x < leftEdge+20) { //Done
 				moveto(rightEdge-50, getY());
-				p1velocity = p1velocity * 0.9;
-				System.out.println("Mario is touching left");
-				currentSegment = 20;
-
+				System.out.println("Link is touching left");
+				currentSegment = 1;
 				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-
-			if (currentSegment == 20 && y < topEdge+20) {
+			if (currentSegment == 3 && y < topEdge+20) { //Done
 				moveto(getX(), (bottomEdge-10) - getHeight());
-				p1velocity = p1velocity * 0.9;
-				System.out.println("Mario is touching top");
-				currentSegment = 5;
-
-				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
+				System.out.println("Link is touching top");
+				currentSegment = 2;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-//            // Reset currentSegment to 5 when respawned
-//            if (p1.getX() == RESPAWN_X && p1.getY() == RESPAWN_Y) {
-//                currentSegment = 5;
-//            }
+			if (currentSegment == 3 && x < leftEdge+20) { //Done
+				moveto(rightEdge-50, getY());
+				System.out.println("Link is touching left");
+				currentSegment = 4;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
 
+			if (currentSegment == 4 && x < rightEdge+20) {
+				moveto((leftEdge+50) - getWidth(), getY());
+				System.out.println("Link is touching right");
+				currentSegment = 3;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
+
+			if (currentSegment == 4 && y < topEdge+20) {
+				moveto(getX(), (bottomEdge-10) - getHeight());
+				System.out.println("Link is touching top");
+				currentSegment = 1;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
 		}
 	}
 
