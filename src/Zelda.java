@@ -65,11 +65,11 @@ public class Zelda {
 		appFrame.getContentPane().add(gamePanel, "Center");
 		appFrame.setVisible(true);
 
-		// BackgroundSound menu_theme = new BackgroundSound("menu.wav", true);
+		BackgroundSound theme = new BackgroundSound("res/overworld.wav", true);
 		
-		// if (SOUNDS_ENABLED) {
-		// 	menu_theme.play();
-		// }
+		if (SOUNDS_ENABLED) {
+			theme.play();
+		}
 	}
 
 	public static void setup() {
