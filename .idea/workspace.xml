@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92e10e1c-f724-4367-ad7f-ccba46a08ca7" name="Changes" comment="h9h[h[9hpi9h[9pn">
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/player/Link.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/player/Link.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/Zelda/player/Link.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Zelda/player/Link.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Zelda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Zelda.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +93,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Zelda_Demo.java</url>
+          <url>file://$PROJECT_DIR$/src/Zelda.java</url>
           <line>36</line>
           <properties class="Zelda" method="initUI">
             <option name="EMULATED" value="true" />
