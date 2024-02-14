@@ -93,9 +93,6 @@ public class Zelda {
 			walk_down2 = ImageIO.read( new File("res/Zelda/player/walk_down2.png") );
 			walk_up1 = ImageIO.read( new File("res/Zelda/player/walk_up1.png") );
 			walk_up2 = ImageIO.read( new File("res/Zelda/player/walk_up2.png") );
-
-            OffTrack = ImageIO.read( new File("res/Zelda/tiles/M3Doubledspace.png") );
-            OnTrack = ImageIO.read( new File("res/Zelda/tiles/M3Doubled.png") );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
