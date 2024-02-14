@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
@@ -12,11 +9,6 @@ import javax.swing.border.Border;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.concurrent.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -47,11 +39,6 @@ public class Zelda {
 		gbc.ipady = 15;
 		gbc.ipadx = 50;
 
-			// Create and add the image label
-		    // ImageIcon titleImage = new ImageIcon("title.png");
-		    // titleLabel = new JLabel(titleImage);
-		    // gamePanel.add(titleLabel, gbc);
-
 		    // Add a rigid area to create space between the image and buttons
 		    gamePanel.add(Box.createRigidArea(new Dimension(0, 10)), gbc);
 
@@ -73,11 +60,6 @@ public class Zelda {
 			bindKey((JPanel) gamePanel, "DOWN");
 			bindKey((JPanel) gamePanel, "LEFT");
 			bindKey((JPanel) gamePanel, "RIGHT");
-
-			// bindKey((JPanel) gamePanel, "W");
-			// bindKey((JPanel) gamePanel, "A");
-			// bindKey((JPanel) gamePanel, "S");
-			// bindKey((JPanel) gamePanel, "D");
 
 		gamePanel.setBackground(CELESTIAL);
 		appFrame.getContentPane().add(gamePanel, "Center");
@@ -102,8 +84,16 @@ public class Zelda {
 		p1originalX = (double) XOFFSET + ((double) WINWIDTH / 2.15) - (p1width / 2.0);
 		p1originalY = (double) YOFFSET + ((double) WINHEIGHT / 1.48) - (p1height / 2.0);
 
-		try { // IO
-			player1 = ImageIO.read( new File("res/Zelda/player/Link.png") );
+		try { // Get link graphics
+			walk_left1 = ImageIO.read( new File("res/Zelda/player/walk_left1.png") );
+			walk_left2 = ImageIO.read( new File("res/Zelda/player/walk_left2.png") );
+			walk_right1 = ImageIO.read( new File("res/Zelda/player/walk_right1.png") );
+			walk_right2 = ImageIO.read( new File("res/Zelda/player/walk_right2.png") );
+			walk_down1 = ImageIO.read( new File("res/Zelda/player/walk_down1.png") );
+			walk_down2 = ImageIO.read( new File("res/Zelda/player/walk_down2.png") );
+			walk_up1 = ImageIO.read( new File("res/Zelda/player/walk_up1.png") );
+			walk_up2 = ImageIO.read( new File("res/Zelda/player/walk_up2.png") );
+
             OffTrack = ImageIO.read( new File("res/Zelda/tiles/M3Doubledspace.png") );
             OnTrack = ImageIO.read( new File("res/Zelda/tiles/M3Doubled.png") );
 		} catch (IOException e) {
@@ -153,6 +143,8 @@ public class Zelda {
 	// Proper way to display graphics is by overriding JPanel's paintComponent method
 	public static class GamePanel extends JPanel {
 		private Timer timer;
+		private BufferedImage player = walk_left1;
+		private double increment = 0.35;
 
 		public GamePanel() {
 			timer = new Timer(32, new ActionListener() {
@@ -169,15 +161,48 @@ public class Zelda {
 			super.paintComponent(g);
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
-
 				g2D.drawImage(OffTrack, XOFFSET, YOFFSET, null);
 				g2D.drawImage(OnTrack, XOFFSET, YOFFSET, null);
 
+				if (leftPressed && anim_counter < 2) {
+					player = walk_left1;
+					anim_counter += increment;
+				} else if (leftPressed) {
+					player = walk_left2;
+					anim_counter += increment;
+				}
+
+				if (rightPressed && anim_counter < 2) {
+					player = walk_right1;
+					anim_counter += increment;
+				} else if (rightPressed) {
+					player = walk_right2;
+					anim_counter += increment;
+				}
+
+				if (downPressed && anim_counter < 2) {
+					player = walk_down1;
+					anim_counter += increment;
+				} else if (downPressed) {
+					player = walk_down2;
+					anim_counter += increment;
+				}
+
+				if (upPressed && anim_counter < 2) {
+					player = walk_up1;
+					anim_counter += increment;
+				} else if (upPressed) {
+					player = walk_up2;
+					anim_counter += increment;
+				}
+
 				// dont draw player objects if they are "dead" (for 3 seconds)
 				if (!p1dead) {
-					g2D.drawImage(affineTranform(p1).filter(player1, null), (int)(p1.getX() + 0.5),
+					g2D.drawImage(affineTranform(p1).filter(player, null), (int)(p1.getX() + 0.5),
 					(int)(p1.getY() + 0.5), null);
 				}
+
+				if (anim_counter > 3) { anim_counter = 1; }
 
 				g2D.dispose();
 			}
@@ -455,7 +480,8 @@ public class Zelda {
 	private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
 
 	private static BufferedImage OffTrack, OnTrack;
-	private static BufferedImage player1;
+	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
+	private static double anim_counter = 1;
 
 	private static Thread t1;
 }
