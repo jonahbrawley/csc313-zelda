@@ -6,17 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="92e10e1c-f724-4367-ad7f-ccba46a08ca7" name="Changes" comment="h9h[h[9hpi9h[9pn">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/player/Link.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/player/Link.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$Animate.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$Animate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$ImageObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$ImageObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$KeyPressed.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$KeyPressed.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$KeyReleased.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$KeyReleased.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$PlayerMoverplayer1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$PlayerMoverplayer1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$QuitGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$QuitGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$Speedometer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$Speedometer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$StartGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$StartGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/Zelda/player/Link.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Zelda/player/Link.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/tiles/M3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/tiles/M4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/tiles/N3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/tiles/N4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/Zelda/tiles/N5.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Zelda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Zelda.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,23 +47,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "11",
-    "last_opened_file_path": "/Users/benjaminbrodwolf/IdeaProjects/csc313-zelda",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/benjaminbrodwolf/IdeaProjects/csc313-zelda&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -100,5 +105,20 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="h9h[h[9hpi9h[9pn" />
     <option name="LAST_COMMIT_MESSAGE" value="h9h[h[9hpi9h[9pn" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Zelda.java</url>
+          <line>36</line>
+          <properties class="Zelda" method="initUI">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

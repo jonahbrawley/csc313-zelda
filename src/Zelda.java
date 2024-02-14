@@ -161,8 +161,9 @@ public class Zelda {
 			super.paintComponent(g);
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
-				g2D.drawImage(OffTrack, XOFFSET, YOFFSET, null);
-				g2D.drawImage(OnTrack, XOFFSET, YOFFSET, null);
+
+				g2D.drawImage(Barriers, XOFFSET, YOFFSET, null);
+				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
 
 				if (leftPressed && anim_counter < 2) {
 					player = walk_left1;
@@ -241,7 +242,11 @@ public class Zelda {
 					p1.move(speed, 0);
 				}
 
-				p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+				try {
+					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 		private double speed;
@@ -428,22 +433,70 @@ public class Zelda {
 			y = yinput;
 		}
 
-		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double velocity) {
-			if (x < leftEdge) { 
-				moveto(leftEdge, getY());
-				velocity = velocity*0.9;
+		int currentSegment = 1;
+		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
+
+
+			if (currentSegment == 1 && x + getWidth() > rightEdge) { //Done
+				moveto((leftEdge+50) - getWidth(), getY());
+				System.out.println("Link is touching right");
+				currentSegment = 2;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
-			if (x + getWidth() > rightEdge) { 
-				moveto(rightEdge - getWidth(), getY()); 
-				velocity = velocity*0.9;
+			if (currentSegment == 1 && y + getHeight() > bottomEdge) { //Done
+				moveto(getX(), topEdge+50);
+				System.out.println("Link is touching bottom");
+				currentSegment = 4;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
-			if (y < topEdge) { 
-				moveto(getX(), topEdge); 
-				velocity = velocity*0.9;
+
+			if (currentSegment == 2 && y + getHeight() > bottomEdge) { //Done
+				moveto(getX(), topEdge+50);
+				System.out.println("Link is touching bottom");
+				currentSegment = 3;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
-			if (y + getHeight() > bottomEdge) { 
-				moveto(getX(), bottomEdge - getHeight()); 
-				velocity = velocity*0.9;
+			if (currentSegment == 2 && x < leftEdge+20) { //Done
+				moveto(rightEdge-50, getY());
+				System.out.println("Link is touching left");
+				currentSegment = 1;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
+
+			if (currentSegment == 3 && y < topEdge+20) { //Done
+				moveto(getX(), (bottomEdge-10) - getHeight());
+				System.out.println("Link is touching top");
+				currentSegment = 2;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
+
+			if (currentSegment == 3 && x < leftEdge+20) { //Done
+				moveto(rightEdge-50, getY());
+				System.out.println("Link is touching left");
+				currentSegment = 4;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
+
+			if (currentSegment == 4 && x < rightEdge+20) {
+				moveto((leftEdge+50) - getWidth(), getY());
+				System.out.println("Link is touching right");
+				currentSegment = 3;
+				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			}
+
+			if (currentSegment == 4 && y < topEdge+20) {
+				moveto(getX(), (bottomEdge-10) - getHeight());
+				System.out.println("Link is touching top");
+				currentSegment = 1;
+				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
+				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 		}
 	}
@@ -479,7 +532,7 @@ public class Zelda {
 
 	private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
 
-	private static BufferedImage OffTrack, OnTrack;
+	private static BufferedImage Barriers, Map;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static double anim_counter = 1;
 
