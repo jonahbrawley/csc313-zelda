@@ -480,7 +480,7 @@ public class Zelda {
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-			if (currentSegment == 4 && x < rightEdge+20) {
+			if (currentSegment == 4 && x > rightEdge+20) {
 				moveto((leftEdge+50) - getWidth(), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 3;
