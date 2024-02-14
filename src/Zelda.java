@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
@@ -13,10 +10,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.concurrent.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -247,11 +240,14 @@ public class Zelda {
 
 				p1.move(-p1velocity * Math.cos(p1.getAngle() - Math.PI / 2.0),
 					p1velocity * Math.sin(p1.getAngle() - Math.PI / 2.0));
-				p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+				try {
+					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 		private double velocitystep, rotatestep, brakingforce;
-		private boolean isCollidingWithSky, isCollidingWithDirt;
 	}
 	// initiates key actions from panel key responses
 	private static void bindKey(JPanel panel, String input) {
@@ -436,23 +432,63 @@ public class Zelda {
 			y = yinput;
 		}
 
-		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double velocity) {
-			if (x < leftEdge) { 
-				moveto(leftEdge, getY());
-				velocity = velocity*0.9;
+		int currentSegment = 5;
+		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
+
+//            if (isCollidingWithGrass(p1.getX(), p1.getY(), OffTrack)) {
+//                currentSegment = 5;
+//            }
+
+			if (currentSegment == 5 && x + getWidth() > rightEdge) {
+				moveto((leftEdge+50) - getWidth(), getY());
+				p1velocity = p1velocity * 0.9;
+				System.out.println("Mario is touching right");
+				currentSegment = 10;
+
+				OnTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadSegment2.png"));
+				OffTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadspace2.png"));
+
+
 			}
-			if (x + getWidth() > rightEdge) { 
-				moveto(rightEdge - getWidth(), getY()); 
-				velocity = velocity*0.9;
+
+
+			if (currentSegment == 10 && y + getHeight() > bottomEdge) {
+				moveto(getX(), topEdge+50);
+				p1velocity = p1velocity * 0.9;
+				System.out.println("Mario is touching bottom");
+				currentSegment = 15;  // Reset to segment 1
+				OnTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadSegment3.png"));
+				OffTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadspace3.png"));
+				System.out.println(currentSegment);
 			}
-			if (y < topEdge) { 
-				moveto(getX(), topEdge); 
-				velocity = velocity*0.9;
+
+
+			if (currentSegment == 15 && x < leftEdge+20) {
+				moveto(rightEdge-50, getY());
+				p1velocity = p1velocity * 0.9;
+				System.out.println("Mario is touching left");
+				currentSegment = 20;
+
+				OnTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadSegment4.png"));
+				OffTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadspace4.png"));
 			}
-			if (y + getHeight() > bottomEdge) { 
-				moveto(getX(), bottomEdge - getHeight()); 
-				velocity = velocity*0.9;
+
+
+			if (currentSegment == 20 && y < topEdge+20) {
+				moveto(getX(), (bottomEdge-10) - getHeight());
+				p1velocity = p1velocity * 0.9;
+				System.out.println("Mario is touching top");
+				currentSegment = 5;
+
+				OnTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadsegment1.png"));
+				OffTrack = ImageIO.read(new File("res/RainbowRoad/largerrainbowroadspace1.png"));
 			}
+
+//            // Reset currentSegment to 5 when respawned
+//            if (p1.getX() == RESPAWN_X && p1.getY() == RESPAWN_Y) {
+//                currentSegment = 5;
+//            }
+
 		}
 
 		public void rotate(double input) {
