@@ -94,6 +94,11 @@ public class Zelda {
 			walk_up1 = ImageIO.read( new File("res/Zelda/player/walk_up1.png") );
 			walk_up2 = ImageIO.read( new File("res/Zelda/player/walk_up2.png") );
 
+			leftHeartOutline = ImageIO.read (new File ("res/Zelda/player/heartOutlineLeft.png") ) ;
+			rightHeartOutline = ImageIO.read (new File ("res/Zelda/player/heartOutlineRight.png") ) ;
+			leftHeart = ImageIO.read (new File ( "res/Zelda/player/heartLeft.png" ) ) ;
+			rightHeart = ImageIO.read (new File ("res/Zelda/player/heartRight.png") ) ;
+
 			Barriers = ImageIO.read( new File("res/Zelda/tiles/M3Doubledspace.png") );
             Map = ImageIO.read( new File("res/Zelda/tiles/M3Doubled.png") );
 		} catch (IOException e) {
@@ -499,6 +504,34 @@ public class Zelda {
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 		}
+		
+		public int getLife() {
+			return life;
+		}
+	
+		public void setLife(int input) {
+			life = input;
+		}
+	
+		public int getMaxLife() {
+			return maxLife;
+		}
+	
+		public void setMaxLife ( int input ) {
+			maxLife = input ;
+		}
+
+		public int getDropLife ( ) {
+			return dropLife ;
+		}
+
+		public void setDropLife ( int input ) {
+			dropLife = input ;
+		}
+
+		private int life ;
+		private int maxLife ;
+		private int dropLife ;
 	}
 
 	// rotates ImageObject
@@ -506,6 +539,37 @@ public class Zelda {
 		AffineTransform at = new AffineTransform();
 		AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		return atop;
+	}
+
+	private static void healthDraw() {
+		Graphics g = appFrame.getGraphics();
+		Graphics2D g2D = (Graphics2D) g;
+
+		int leftScale = 10;
+		int leftOffset = 10;
+		int rightOffset = 10;
+		int interiorOffset = 2;
+		int halfInteriorOffset = 1;
+
+		for (int i = 0; i < p1.getMaxLife(); i++) {
+			if (i % 2 == 0) {
+				g2D.drawImage(rotateImageObject(p1).filter(leftHeartOutline, null), 
+				leftScale * i + leftOffset + XOFFSET, YOFFSET, null);
+			} else {
+				g2D.drawImage(rotateImageObject(p1).filter(rightHeartOutline, null),
+				leftScale * i + rightOffset + XOFFSET, YOFFSET, null);
+			}
+		}
+
+		for (int i = 0; i < p1.getLife(); i++) {
+			if (i % 2 == 0) {
+				g2D.drawImage(rotateImageObject(p1).filter(leftHeart, null),
+				leftScale * i + leftOffset + interiorOffset + XOFFSET, interiorOffset + YOFFSET, null);
+			} else {
+				g2D.drawImage(rotateImageObject(p1).filter(rightHeart, null), 
+				leftScale * i + leftOffset - halfInteriorOffset + XOFFSET, interiorOffset + YOFFSET, null);
+			}
+		}
 	}
 
 	// -------- GLOBAL VARIABLES --------
@@ -535,6 +599,11 @@ public class Zelda {
 	private static BufferedImage Barriers, Map;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static double anim_counter = 1;
+
+	private static BufferedImage leftHeartOutline;
+	private static BufferedImage rightHeartOutline;
+	private static BufferedImage leftHeart;
+	private static BufferedImage rightHeart;
 
 	private static Thread t1;
 }
