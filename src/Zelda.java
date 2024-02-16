@@ -134,7 +134,7 @@ public class Zelda {
 			gameActive = true;
 			gamePanel.startAnimation();
 
-			//lastDropLife = System.currentTimeMillis();
+			lastDropLife = System.currentTimeMillis();
 			t1 = new Thread( new PlayerOneMover() );
 			t2 = new Thread( new HealthTracker() );
 
@@ -456,7 +456,6 @@ public class Zelda {
 		int currentSegment = 1;
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
 
-
 			if (currentSegment == 1 && x + getWidth() > rightEdge) { //Done
 				moveto((leftEdge+50) - getWidth(), getY());
 				System.out.println("Link is touching right");
@@ -549,30 +548,30 @@ public class Zelda {
 		private int dropLife ;
 	}
 
+	// tracks health of player or enemy
 	private static class HealthTracker implements Runnable {
 		public void run() {
 			while (endgame == false) {
 				Long curTimeLong = new Long(System.currentTimeMillis());
-				if (/**availableToDropLife && **/ p1.getDropLife() > 0) {
+				if (availableToDropLife && p1.getDropLife() > 0) {
 					int newLife = p1.getLife() - p1.getDropLife();
 					p1.setDropLife(0);
-					//availableToDropLife = false;
-
-					//lastDropLife = System.currentTimeMillis();
+					availableToDropLife = false;
+					lastDropLife = System.currentTimeMillis();
 					p1.setLife(newLife);
 
 					try {
-						// AudioInputStream ais = AudioSystem . getAudioInputStream (
-						// new F i l e ( ” hurt . wav” ) . getAbsoluteFile ( ) ) ;
-						// Clip hurtclip = AudioSystem . getClip ( ) ;
-						// hurtclip . open ( ais ) ;
-						// hurtclip . s t a r t ( ) ;
+						// AudioInputStream ais = AudioSystem.getAudioInputStream(
+						// 	new File ("hurt.wav").getAbsoluteFile());
+						// Clip hurtclip = AudioSystem.getClip();
+						// hurtclip.open(ais);
+						// hurtclip.start();
 					}
 					catch (Exception e) { }
 				} else {
-					// if (curTimeLong - lastDropLife > dropLifeLifeTime) {
-					// 	availableToDropLife = true;
-					// }
+					if (curTimeLong - lastDropLife > dropLifeLifeTime) {
+						availableToDropLife = true;
+					}
 				}
 			}
 		}
@@ -654,6 +653,10 @@ public class Zelda {
 	private static BufferedImage rightHeartOutline;
 	private static BufferedImage leftHeart;
 	private static BufferedImage rightHeart;
+
+	private static Long dropLifeLifeTime;
+	private static Long lastDropLife;
+	private static Boolean availableToDropLife;
 
 	private static Thread t1;
 	private static Thread t2;
