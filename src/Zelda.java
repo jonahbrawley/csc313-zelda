@@ -174,6 +174,7 @@ public class Zelda {
 
 				g2D.drawImage(Barriers, XOFFSET, YOFFSET, null);
 				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
+				healthDraw();
 
 				if (leftPressed && anim_counter < 2) {
 					player = walk_left1;
@@ -214,8 +215,6 @@ public class Zelda {
 				}
 
 				if (anim_counter > 3) { anim_counter = 1; }
-
-				healthDraw();
 
 				g2D.dispose();
 			}
