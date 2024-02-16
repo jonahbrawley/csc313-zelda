@@ -125,6 +125,8 @@ public class Zelda {
 			rightPressed = false;
 
 			p1 = new ImageObject(p1originalX, p1originalY, p1width, p1height);
+			p1.setLife(6);
+			p1.setMaxLife(6);
 
 			try { Thread.sleep(50); } catch (InterruptedException ie) { }
 
@@ -132,6 +134,7 @@ public class Zelda {
 			gameActive = true;
 			gamePanel.startAnimation();
 
+			//lastDropLife = System.currentTimeMillis();
 			t1 = new Thread( new PlayerOneMover() );
 			t2 = new Thread( new HealthTracker() );
 
@@ -212,14 +215,13 @@ public class Zelda {
 
 				if (anim_counter > 3) { anim_counter = 1; }
 
+				healthDraw();
+
 				g2D.dispose();
 			}
 		}
 
-		public void startAnimation() { 
-			timer.start(); 
-			healthDraw();
-		}
+		public void startAnimation() { timer.start(); }
 
 		public void stopAnimation() { timer.stop(); }
 	}
@@ -414,13 +416,21 @@ public class Zelda {
 		private double x, y, xwidth, yheight, angle;
 		public double maxvelocity;
 
+		public ImageObject() {
+			//maxFrames = 1;
+			//currentFrame = 0;
+			life = 1;
+			maxLife = 1;
+			dropLife = 0;
+		}
+
 		public ImageObject(double xinput, double yinput, double xwidthinput,
 			double yheightinput/** , double angleinput*/) {
 			x = xinput;
 			y = yinput;
 			xwidth = xwidthinput;
 			yheight = yheightinput;
-			angle = 1.0;
+			angle = 75.0;
 		}
 
 		public double getX() { return x; }
@@ -575,10 +585,10 @@ public class Zelda {
 		return atop;
 	}
 
-	private static AffineTransformOp rotateImageObject ( ImageObject obj ) {
-		AffineTransform at = AffineTransform.getRotateInstance (-obj.getAngle(), obj.getWidth() / 2.0, obj.getHeight() / 2.0 ) ;
-		AffineTransformOp atop = new AffineTransformOp ( at , AffineTransformOp.TYPE_BILINEAR ) ;
-		return atop ;
+	private static AffineTransformOp rotateImageObject(ImageObject obj) {
+		AffineTransform at = AffineTransform.getRotateInstance(-obj.getAngle(), obj.getWidth() / 2.0, obj.getHeight() / 2.0);
+		AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		return atop;
 	}
 
 	private static void healthDraw() {
