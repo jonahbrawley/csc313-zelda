@@ -133,8 +133,10 @@ public class Zelda {
 			gamePanel.startAnimation();
 
 			t1 = new Thread( new PlayerOneMover() );
+			t2 = new Thread( new HealthTracker() );
 
 			t1.start();
+			t2.start();
 		}
 	}
 
@@ -214,7 +216,10 @@ public class Zelda {
 			}
 		}
 
-		public void startAnimation() { timer.start(); }
+		public void startAnimation() { 
+			timer.start(); 
+			healthDraw();
+		}
 
 		public void stopAnimation() { timer.stop(); }
 	}
@@ -367,7 +372,6 @@ public class Zelda {
 
 		});
 
-		
 		button.setBackground(URANIAN);
 		button.setForeground(Color.BLACK);
 		button.setContentAreaFilled(false);
@@ -407,15 +411,16 @@ public class Zelda {
     // -------- UTILITY FUNCTIONS --------
 	// moveable image objects
 	private static class ImageObject {
-		private double x, y, xwidth, yheight;
+		private double x, y, xwidth, yheight, angle;
 		public double maxvelocity;
 
 		public ImageObject(double xinput, double yinput, double xwidthinput,
-			double yheightinput) {
+			double yheightinput/** , double angleinput*/) {
 			x = xinput;
 			y = yinput;
 			xwidth = xwidthinput;
 			yheight = yheightinput;
+			angle = 1.0;
 		}
 
 		public double getX() { return x; }
@@ -426,7 +431,7 @@ public class Zelda {
 
 		public double getHeight() { return yheight; }
 
-		//public double getAngle() { return angle; }
+		public double getAngle() { return angle; }
 
 		public void move(double xinput, double yinput) {
 			x = x + xinput; 
@@ -534,11 +539,46 @@ public class Zelda {
 		private int dropLife ;
 	}
 
+	private static class HealthTracker implements Runnable {
+		public void run() {
+			while (endgame == false) {
+				Long curTimeLong = new Long(System.currentTimeMillis());
+				if (/**availableToDropLife && **/ p1.getDropLife() > 0) {
+					int newLife = p1.getLife() - p1.getDropLife();
+					p1.setDropLife(0);
+					//availableToDropLife = false;
+
+					//lastDropLife = System.currentTimeMillis();
+					p1.setLife(newLife);
+
+					try {
+						// AudioInputStream ais = AudioSystem . getAudioInputStream (
+						// new F i l e ( ” hurt . wav” ) . getAbsoluteFile ( ) ) ;
+						// Clip hurtclip = AudioSystem . getClip ( ) ;
+						// hurtclip . open ( ais ) ;
+						// hurtclip . s t a r t ( ) ;
+					}
+					catch (Exception e) { }
+				} else {
+					// if (curTimeLong - lastDropLife > dropLifeLifeTime) {
+					// 	availableToDropLife = true;
+					// }
+				}
+			}
+		}
+	}
+
 	// rotates ImageObject
 	private static AffineTransformOp affineTranform(ImageObject obj) {
 		AffineTransform at = new AffineTransform();
 		AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		return atop;
+	}
+
+	private static AffineTransformOp rotateImageObject ( ImageObject obj ) {
+		AffineTransform at = AffineTransform.getRotateInstance (-obj.getAngle(), obj.getWidth() / 2.0, obj.getHeight() / 2.0 ) ;
+		AffineTransformOp atop = new AffineTransformOp ( at , AffineTransformOp.TYPE_BILINEAR ) ;
+		return atop ;
 	}
 
 	private static void healthDraw() {
@@ -606,4 +646,5 @@ public class Zelda {
 	private static BufferedImage rightHeart;
 
 	private static Thread t1;
+	private static Thread t2;
 }
