@@ -262,8 +262,8 @@ public class Zelda {
 				}
 
 				try {
-					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
-					p1.enemyHitBoxes();
+					p1.screenBounds(XOFFSET - 10, WINWIDTH - 10, YOFFSET - 5,
+							WINHEIGHT + 5, p1.maxvelocity); // a little more accurate to sprite					p1.enemyHitBoxes();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
