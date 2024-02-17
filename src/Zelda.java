@@ -12,6 +12,7 @@ import javax.sound.sampled.Clip;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList; // import ArrayList 
 
 public class Zelda {
 	public Zelda() {
@@ -101,6 +102,10 @@ public class Zelda {
 			heart2 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 			heart3 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 
+			// save player walkable pixels and dungeon door region into sep arraylists
+			BufferedImage N4MapKey = ImageIO.read(new File("res/Zelda/tiles/N4MapKey.png"));
+			regionDungeonDoor = loadRegion(N4MapKey, regionBLUE);
+			System.out.println(regionDungeonDoor);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -448,21 +453,17 @@ public class Zelda {
 			y = yinput;
 		}
 
-
-
 		public void enemyHitBoxes() throws IOException {
-
 			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() > 49 && p1.getY() < 6) {
 				heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart"));
 			}
-
-			}
+		}
 
 		int currentSegment = 1;
+		// currSegment == what map tile you are on
+
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
-
-
-			if (currentSegment == 1 && x + getWidth() > rightEdge) { //Done
+			if (currentSegment == 1 && x + getWidth() > rightEdge) { //
 				moveto((leftEdge+50) - getWidth(), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 2;
@@ -512,7 +513,7 @@ public class Zelda {
 				moveto((leftEdge+50) - getWidth(), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 3;
-				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png")); // tile with dungeon entrance
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
@@ -533,6 +534,21 @@ public class Zelda {
 		return atop;
 	}
 
+	private static ArrayList<Point> loadRegion(BufferedImage mapkey, Color regionCOLOR) {
+		ArrayList<Point> region = new ArrayList<>();
+		int rgnCol = regionCOLOR.getRGB();
+
+		for (int x = 0; x < WINWIDTH; x++) {
+            for (int y = 0; y < WINHEIGHT; y++) {
+                if (mapkey.getRGB(x, y) == rgnCol) {
+					region.add(new Point(x, y));
+				}
+            }
+        }
+
+		return region;
+	}
+
 	// -------- GLOBAL VARIABLES --------
 	private static Boolean endgame;
 	private static Boolean GameOver = false;
@@ -546,6 +562,8 @@ public class Zelda {
 	private static Color CELESTIAL = new Color(49, 151, 199);
 	private static Color HIGHLIGHT = new Color(110, 168, 195);
 	private static Color URANIAN = new Color(164, 210, 232);
+	private static Color regionBLUE = new Color(0, 30, 255);
+	private static Color regionRED = new Color(255, 0, 0);
 
 	private static int XOFFSET, YOFFSET, WINWIDTH, WINHEIGHT;
 
@@ -560,6 +578,10 @@ public class Zelda {
 	private static BufferedImage Barriers, Map;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static BufferedImage heart1, heart2, heart3;
+
+	private static ArrayList<Point> regionDungeonDoor;
+	private static ArrayList<Point> regionN4;
+
 	private static double anim_counter = 1;
 
 	private static Thread t1;
