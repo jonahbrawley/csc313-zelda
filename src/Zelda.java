@@ -258,6 +258,7 @@ public class Zelda {
 
 				try {
 					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+					p1.enemyHitBoxes();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -449,10 +450,13 @@ public class Zelda {
 
 
 
-//		public void enemyHitBoxes() throws IOException {
-//
-//			if (currentSegment == 1  && p1.getX() )
-//		}
+		public void enemyHitBoxes() throws IOException {
+
+			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() > 49 && p1.getY() < 6) {
+				heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart"));
+			}
+
+			}
 
 		int currentSegment = 1;
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
