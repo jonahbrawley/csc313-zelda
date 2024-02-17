@@ -607,11 +607,12 @@ public class Zelda {
 
 	private static JButton startButton, quitButton;
 
-	private static Color CELESTIAL = new Color(49, 151, 199);
-	private static Color HIGHLIGHT = new Color(110, 168, 195);
-	private static Color URANIAN = new Color(164, 210, 232);
-	private static Color regionBLUE = new Color(0, 30, 255);
-	private static Color regionRED = new Color(255, 0, 0);
+	private static Color CELESTIAL = new Color(89, 181, 96);
+	private static Color HIGHLIGHT = new Color(79, 102, 80);
+	private static Color URANIAN = new Color(167, 217, 171);
+
+	private static Color regionBLUE = new Color(0, 30, 255); // dungeon door
+	private static Color regionRED = new Color(255, 0, 0); // where link cannot move
 
 	private static int XOFFSET, YOFFSET, WINWIDTH, WINHEIGHT;
 
