@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -37,13 +38,11 @@ public class Zelda {
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		gbc.ipady = 15;
+		gbc.ipady = 10;
 		gbc.ipadx = 50;
 
 		    // Add a rigid area to create space between the image and buttons
-		    gamePanel.add(Box.createRigidArea(new Dimension(0, 10)), gbc);
-
-			gbc.insets = new Insets(10, 0, 0, 0);
+		    gamePanel.add(Box.createRigidArea(new Dimension(0, 0)), gbc);
 
 			startButton = new MyButton("Start");
 			startButton.addActionListener(new StartGame((GamePanel) gamePanel));
@@ -65,11 +64,9 @@ public class Zelda {
 		gamePanel.setBackground(CELESTIAL);
 		appFrame.getContentPane().add(gamePanel, "Center");
 		appFrame.setVisible(true);
-
-		BackgroundSound theme = new BackgroundSound("res/overworld.wav", true);
 		
 		if (SOUNDS_ENABLED) {
-			theme.play();
+			overworldtheme.play();
 		}
 	}
 
@@ -105,7 +102,7 @@ public class Zelda {
 			// save player walkable pixels and dungeon door region into sep arraylists
 			BufferedImage N4MapKey = ImageIO.read(new File("res/Zelda/tiles/N4MapKey.png"));
 			regionDungeonDoor = loadRegion(N4MapKey, regionBLUE);
-			System.out.println(regionDungeonDoor);
+			regionN4 = loadRegion(N4MapKey, regionRED);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -173,7 +170,7 @@ public class Zelda {
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
 
-				System.out.println(p1.getX()+ " " + p1.getY());
+				//System.out.println(p1.getX()+ " " + p1.getY());
 
 
 				g2D.drawImage(Barriers, XOFFSET, YOFFSET, null);
@@ -235,8 +232,12 @@ public class Zelda {
 
 	// updating player one movement
 	private static class PlayerOneMover implements Runnable {
+		public Point2D.Double validloc = new Point2D.Double();
+		public ArrayList<Point2D.Double> currloc = new ArrayList<>();
+
 		public PlayerOneMover() {
-			speed = 1;
+			speed = 1.0;
+			validloc = new Point2D.Double(p1.getX(), p1.getY());
 		}
 
 		public void run() {
@@ -245,20 +246,29 @@ public class Zelda {
 					Thread.sleep(10);
 				} catch (InterruptedException e) { }
 
+				// add players points
+				Point2D.Double point1 = new Point2D.Double(p1.getX(), p1.getY()+30.0);
+				Point2D.Double point2 = new Point2D.Double(p1.getX()+30.0, p1.getY()+30.0);
+
+				if (!regionN4.contains(point1) && !regionN4.contains(point2)) {
+					validloc = new Point2D.Double(p1.getX(), p1.getY());
+					System.out.println("Region OK! " + validloc);
+				}
+
 				if (upPressed == true) {
-					p1.move(0, -speed);
+					p1.move(0.0, -speed);
 				}
 
 				if (downPressed == true) {
-					p1.move(0, speed);
+					p1.move(0.0, speed);
 				}
 
 				if (leftPressed == true) {
-					p1.move(-speed, 0);
+					p1.move(-speed, 0.0);
 				}
 
 				if (rightPressed == true) {
-					p1.move(speed, 0);
+					p1.move(speed, 0.0);
 				}
 
 				try {
@@ -269,7 +279,7 @@ public class Zelda {
 				}
 			}
 		}
-		private double speed;
+		private Double speed;
 	}
 	// initiates key actions from panel key responses
 	private static void bindKey(JPanel panel, String input) {
@@ -312,6 +322,7 @@ public class Zelda {
 	public static class BackgroundSound implements Runnable {
 		private String file;
 		private boolean loopAudio;
+		private Thread t = new Thread(this);
 
 		public BackgroundSound(String file, Boolean isLoop) {
 			this.file = file;
@@ -319,7 +330,6 @@ public class Zelda {
 		}
 
 		public void play() {
-	        Thread t = new Thread(this);
 	        t.start();
     	}
 
@@ -422,103 +432,121 @@ public class Zelda {
     // -------- UTILITY FUNCTIONS --------
 	// moveable image objects
 	private static class ImageObject {
-		private double x, y, xwidth, yheight;
-		public double maxvelocity;
+		private Double x, y, xwidth, yheight;
+		public int currentSegment = 1; // currSegment == what map tile you are on
 
-		public ImageObject(double xinput, double yinput, double xwidthinput,
-			double yheightinput) {
+		public ImageObject(Double xinput, Double yinput, Double xwidthinput,
+			Double yheightinput) {
 			x = xinput;
 			y = yinput;
 			xwidth = xwidthinput;
 			yheight = yheightinput;
 		}
 
-		public double getX() { return x; }
+		public Double getX() { return x; }
 
-		public double getY() { return y; }
+		public Double getY() { return y; }
 
-		public double getWidth() { return xwidth; }
+		public Double getWidth() { return xwidth; }
 
-		public double getHeight() { return yheight; }
+		public Double getHeight() { return yheight; }
 
 		//public double getAngle() { return angle; }
 
-		public void move(double xinput, double yinput) {
+		public void move(Double xinput, Double yinput) {
 			x = x + xinput; 
 			y = y + yinput;
 		}
 
-		public void moveto(double xinput, double yinput) {
+		public void moveto(Double xinput, Double yinput) {
 			x = xinput; 
 			y = yinput;
 		}
 
 		public void enemyHitBoxes() throws IOException {
-			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() > 49 && p1.getY() < 6) {
-				heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart"));
+			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() < 49 && p1.getY() > 6) {
+				if (isHittingEnemy == false && heart3alreadyDied == false) {
+					System.out.println("got hit OUCH");
+					isHittingEnemy = true;
+					heart3alreadyDied = true;
+					heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart.png"));
+				}
 			}
 		}
 
-		int currentSegment = 1;
-		// currSegment == what map tile you are on
+		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge) throws IOException {
 
-		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
-			if (currentSegment == 1 && x + getWidth() > rightEdge) { //
-				moveto((leftEdge+50) - getWidth(), getY());
+
+			// Ensure the player stays within the screen boundaries
+			if (x < leftEdge) {
+				x = leftEdge;
+			} else if (x + getWidth() > rightEdge) {
+				x = rightEdge - getWidth();
+			}
+
+			if (y < topEdge) {
+				y = topEdge;
+			} else if (y + getHeight() > bottomEdge) {
+				y = bottomEdge - getHeight();
+			}
+
+
+			if (currentSegment == 1 && x > rightEdge - 31) { //Done
+				moveto((leftEdge+5), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 2;
 				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
-			if (currentSegment == 1 && y + getHeight() > bottomEdge) { //Done
-				moveto(getX(), topEdge+50);
+			if (currentSegment == 1 && y + getHeight() > bottomEdge-21) { //Done
+				moveto(getX(), topEdge+2);
 				System.out.println("Link is touching bottom");
 				currentSegment = 4;
 				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-			if (currentSegment == 2 && y + getHeight() > bottomEdge) { //Done
-				moveto(getX(), topEdge+50);
-				System.out.println("Link is touching bottom");
-				currentSegment = 3;
-				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-			}
-			if (currentSegment == 2 && x < leftEdge+20) { //Done
-				moveto(rightEdge-50, getY());
+//			if (currentSegment == 2 && y + getHeight() > bottomEdge-21) { //Done
+//				moveto(getX(), topEdge+50);
+//				System.out.println("Link is touching bottom");
+//				currentSegment = 3;
+//				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+//				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+//			}
+			if (currentSegment == 2 && x < leftEdge+1) { //Done
+				moveto(rightEdge-32, getY());
 				System.out.println("Link is touching left");
 				currentSegment = 1;
 				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-			if (currentSegment == 3 && y < topEdge+20) { //Done
-				moveto(getX(), (bottomEdge-10) - getHeight());
-				System.out.println("Link is touching top");
-				currentSegment = 2;
-				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-			}
+//			if (currentSegment == 3 && y < topEdge+1) { //Done
+//				moveto(getX(), (bottomEdge-30) - getHeight());
+//				System.out.println("Link is touching top");
+//				currentSegment = 2;
+//				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
+//				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+//			}
 
-			if (currentSegment == 3 && x < leftEdge+20) { //Done
-				moveto(rightEdge-50, getY());
+			if (currentSegment == 3 && x < leftEdge+1) { //Done
+				moveto(rightEdge-32, getY());
 				System.out.println("Link is touching left");
 				currentSegment = 4;
 				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-			if (currentSegment == 4 && x > rightEdge+20) {
-				moveto((leftEdge+50) - getWidth(), getY());
+			if (currentSegment == 4 && x > rightEdge-31) {
+				moveto((leftEdge+5), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 3;
 				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png")); // tile with dungeon entrance
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-			if (currentSegment == 4 && y < topEdge+20) {
-				moveto(getX(), (bottomEdge-10) - getHeight());
+			if (currentSegment == 4 && y < topEdge+1) {
+				moveto(getX(), (bottomEdge-30) - getHeight());
 				System.out.println("Link is touching top");
 				currentSegment = 1;
 				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
@@ -534,14 +562,14 @@ public class Zelda {
 		return atop;
 	}
 
-	private static ArrayList<Point> loadRegion(BufferedImage mapkey, Color regionCOLOR) {
-		ArrayList<Point> region = new ArrayList<>();
+	private static ArrayList<Point2D.Double> loadRegion(BufferedImage mapkey, Color regionCOLOR) {
+		ArrayList<Point2D.Double> region = new ArrayList<>();
 		int rgnCol = regionCOLOR.getRGB();
 
 		for (int x = 0; x < WINWIDTH; x++) {
             for (int y = 0; y < WINHEIGHT; y++) {
                 if (mapkey.getRGB(x, y) == rgnCol) {
-					region.add(new Point(x, y));
+					region.add(new Point2D.Double(x, y));
 				}
             }
         }
@@ -555,15 +583,21 @@ public class Zelda {
 	private static boolean gameActive = false;
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
 	private static Boolean p1dead = false;
+
+	private static Boolean heart3alreadyDied = false;
+	private static Boolean isHittingEnemy = false;
+
 	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
+	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
 
 	private static JButton startButton, quitButton;
 
-	private static Color CELESTIAL = new Color(49, 151, 199);
-	private static Color HIGHLIGHT = new Color(110, 168, 195);
-	private static Color URANIAN = new Color(164, 210, 232);
-	private static Color regionBLUE = new Color(0, 30, 255);
-	private static Color regionRED = new Color(255, 0, 0);
+	private static Color CELESTIAL = new Color(89, 181, 96);
+	private static Color HIGHLIGHT = new Color(79, 102, 80);
+	private static Color URANIAN = new Color(167, 217, 171);
+
+	private static Color regionBLUE = new Color(0, 30, 255); // dungeon door
+	private static Color regionRED = new Color(255, 0, 0); // where link cannot move
 
 	private static int XOFFSET, YOFFSET, WINWIDTH, WINHEIGHT;
 
@@ -579,8 +613,8 @@ public class Zelda {
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static BufferedImage heart1, heart2, heart3;
 
-	private static ArrayList<Point> regionDungeonDoor;
-	private static ArrayList<Point> regionN4;
+	private static ArrayList<Point2D.Double> regionDungeonDoor;
+	private static ArrayList<Point2D.Double> regionN4;
 
 	private static double anim_counter = 1;
 
