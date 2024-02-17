@@ -82,8 +82,8 @@ public class Zelda {
 
 		p1width = 30;
 		p1height = 30;
-		p1originalX = (double) XOFFSET + ((double) WINWIDTH / 2.15) - (p1width / 2.0);
-		p1originalY = (double) YOFFSET + ((double) WINHEIGHT / 1.48) - (p1height / 2.0);
+		p1originalX = 40.0; // hard coded
+		p1originalY = 60.0; // hard coded
 
 		try { // Get link graphics
 			walk_left1 = ImageIO.read( new File("res/Zelda/player/walk_left1.png") );

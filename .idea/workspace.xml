@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92e10e1c-f724-4367-ad7f-ccba46a08ca7" name="Changes" comment="Retarted Movement (Fix)">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$QuitGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$QuitGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Zelda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Zelda.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,25 +42,34 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2cHByN1q1RC335jqcDkabHzylfb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.Zelda.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;F__dungeon__detection&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/benjaminbrodwolf/IdeaProjects/csc313-zelda&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -52,6 +77,13 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -67,6 +99,9 @@
       <workItem from="1707762137423" duration="3510000" />
       <workItem from="1708130055775" duration="315000" />
       <workItem from="1708130509605" duration="1963000" />
+      <workItem from="1708195834177" duration="96000" />
+      <workItem from="1708195941160" duration="3992000" />
+      <workItem from="1708208226047" duration="252000" />
     </task>
     <task id="LOCAL-00001" summary="h9h[h[9hpi9h[9pn">
       <created>1707762686799</created>
@@ -91,20 +126,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="h9h[h[9hpi9h[9pn" />
     <option name="LAST_COMMIT_MESSAGE" value="h9h[h[9hpi9h[9pn" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Zelda.java</url>
-          <line>36</line>
-          <properties class="Zelda" method="initUI">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
