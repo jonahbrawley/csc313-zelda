@@ -176,6 +176,19 @@ public class Zelda {
 				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
 				healthDraw();
 
+				// g2D.drawImage(leftHeartOutline, 5, 5, null);
+				// g2D.drawImage(leftHeart, 5, 5, null);
+				// g2D.drawImage(rightHeart, 4, 5, null);
+				// g2D.drawImage(rightHeartOutline, 4, 5, null);
+				// g2D.drawImage(leftHeartOutline, 41, 5, null);
+				// g2D.drawImage(leftHeart, 41, 5, null);
+				// g2D.drawImage(rightHeart, 40, 5, null);
+				// g2D.drawImage(rightHeartOutline, 40, 5, null);
+				// g2D.drawImage(leftHeartOutline, 77, 5, null);
+				// g2D.drawImage(leftHeart, 77, 5, null);
+				// g2D.drawImage(rightHeart, 76, 5, null);
+				// g2D.drawImage(rightHeartOutline, 76, 5, null);
+
 				if (leftPressed && anim_counter < 2) {
 					player = walk_left1;
 					anim_counter += increment;
@@ -601,21 +614,17 @@ public class Zelda {
 
 		for (int i = 0; i < p1.getMaxLife(); i++) {
 			if (i % 2 == 0) {
-				g2D.drawImage(rotateImageObject(p1).filter(leftHeartOutline, null), 
-				leftScale * i + leftOffset + XOFFSET, YOFFSET, null);
+				g2D.drawImage(leftHeartOutline, leftScale * i + leftOffset + XOFFSET, YOFFSET, null);
 			} else {
-				g2D.drawImage(rotateImageObject(p1).filter(rightHeartOutline, null),
-				leftScale * i + rightOffset + XOFFSET, YOFFSET, null);
+				g2D.drawImage(rightHeartOutline, leftScale * i + rightOffset + XOFFSET, YOFFSET, null);
 			}
 		}
 
 		for (int i = 0; i < p1.getLife(); i++) {
 			if (i % 2 == 0) {
-				g2D.drawImage(rotateImageObject(p1).filter(leftHeart, null),
-				leftScale * i + leftOffset + interiorOffset + XOFFSET, interiorOffset + YOFFSET, null);
+				g2D.drawImage(leftHeart, leftScale * i + leftOffset + interiorOffset + XOFFSET, interiorOffset + YOFFSET, null);
 			} else {
-				g2D.drawImage(rotateImageObject(p1).filter(rightHeart, null), 
-				leftScale * i + leftOffset - halfInteriorOffset + XOFFSET, interiorOffset + YOFFSET, null);
+				g2D.drawImage(rightHeart, leftScale * i + leftOffset - halfInteriorOffset + XOFFSET, interiorOffset + YOFFSET, null);
 			}
 		}
 	}
