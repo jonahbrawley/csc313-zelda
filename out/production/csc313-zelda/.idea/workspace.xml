@@ -6,19 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="92e10e1c-f724-4367-ad7f-ccba46a08ca7" name="Changes" comment="Retarted Movement (Fix)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$QuitGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$QuitGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Zelda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Zelda.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +69,9 @@
       <workItem from="1707759074091" duration="1046000" />
       <workItem from="1707762137423" duration="3510000" />
       <workItem from="1708130055775" duration="315000" />
+      <workItem from="1708130509605" duration="4996000" />
+      <workItem from="1708136737720" duration="240000" />
+      <workItem from="1708139787199" duration="734000" />
     </task>
     <task id="LOCAL-00001" summary="h9h[h[9hpi9h[9pn">
       <created>1707762686799</created>
@@ -109,7 +103,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Zelda.java</url>
           <line>36</line>
-          <properties class="Zelda" method="initUI">
+          <properties class="Zelda">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

@@ -452,9 +452,20 @@ public class Zelda {
 
 		public void enemyHitBoxes() throws IOException {
 
-			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() > 49 && p1.getY() < 6) {
-				heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart"));
+			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() < 49 && p1.getY() > 6) {
+				if (isHittingEnemy == false && heart3alreadyDied == false) {
+					System.out.println("got hit OUCH");
+					isHittingEnemy = true;
+					heart3alreadyDied = true;
+					heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart.png"));
+				}
+
+
+
 			}
+
+
+
 
 			}
 
@@ -539,6 +550,14 @@ public class Zelda {
 	private static boolean gameActive = false;
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
 	private static Boolean p1dead = false;
+
+
+	private static Boolean heart3alreadyDied = false;
+	private static Boolean isHittingEnemy = false;
+
+
+
+
 	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
 
 	private static JButton startButton, quitButton;
