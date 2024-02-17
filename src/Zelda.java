@@ -174,7 +174,6 @@ public class Zelda {
 
 				g2D.drawImage(Barriers, XOFFSET, YOFFSET, null);
 				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
-				healthDraw();
 
 				// g2D.drawImage(leftHeartOutline, 5, 5, null);
 				// g2D.drawImage(leftHeart, 5, 5, null);
