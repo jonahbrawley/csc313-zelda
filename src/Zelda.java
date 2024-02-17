@@ -38,13 +38,11 @@ public class Zelda {
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		gbc.ipady = 15;
+		gbc.ipady = 10;
 		gbc.ipadx = 50;
 
 		    // Add a rigid area to create space between the image and buttons
-		    gamePanel.add(Box.createRigidArea(new Dimension(0, 10)), gbc);
-
-			gbc.insets = new Insets(10, 0, 0, 0);
+		    gamePanel.add(Box.createRigidArea(new Dimension(0, 0)), gbc);
 
 			startButton = new MyButton("Start");
 			startButton.addActionListener(new StartGame((GamePanel) gamePanel));
