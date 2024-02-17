@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -12,6 +13,7 @@ import javax.sound.sampled.Clip;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList; // import ArrayList 
 
 public class Zelda {
 	public Zelda() {
@@ -64,11 +66,9 @@ public class Zelda {
 		gamePanel.setBackground(CELESTIAL);
 		appFrame.getContentPane().add(gamePanel, "Center");
 		appFrame.setVisible(true);
-
-		BackgroundSound theme = new BackgroundSound("res/overworld.wav", true);
 		
 		if (SOUNDS_ENABLED) {
-			theme.play();
+			overworldtheme.play();
 		}
 	}
 
@@ -101,6 +101,10 @@ public class Zelda {
 			heart2 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 			heart3 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 
+			// save player walkable pixels and dungeon door region into sep arraylists
+			BufferedImage N4MapKey = ImageIO.read(new File("res/Zelda/tiles/N4MapKey.png"));
+			regionDungeonDoor = loadRegion(N4MapKey, regionBLUE);
+			regionN4 = loadRegion(N4MapKey, regionRED);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -168,7 +172,7 @@ public class Zelda {
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
 
-				System.out.println(p1.getX()+ " " + p1.getY());
+				//System.out.println(p1.getX()+ " " + p1.getY());
 
 
 				g2D.drawImage(Barriers, XOFFSET, YOFFSET, null);
@@ -230,8 +234,11 @@ public class Zelda {
 
 	// updating player one movement
 	private static class PlayerOneMover implements Runnable {
+		public Point2D.Double validloc = new Point2D.Double();
+
 		public PlayerOneMover() {
-			speed = 1;
+			speed = 1.0;
+			validloc = new Point2D.Double(p1.getX(), p1.getY());
 		}
 
 		public void run() {
@@ -241,30 +248,48 @@ public class Zelda {
 				} catch (InterruptedException e) { }
 
 				if (upPressed == true) {
-					p1.move(0, -speed);
+					p1.move(0.0, -speed);
 				}
 
 				if (downPressed == true) {
-					p1.move(0, speed);
+					p1.move(0.0, speed);
 				}
 
 				if (leftPressed == true) {
-					p1.move(-speed, 0);
+					p1.move(-speed, 0.0);
 				}
 
 				if (rightPressed == true) {
-					p1.move(speed, 0);
+					p1.move(speed, 0.0);
 				}
 
 				try {
-					p1.screenBounds(XOFFSET, WINWIDTH, YOFFSET, WINHEIGHT, p1.maxvelocity);
+					p1.screenBounds(0.0, 320.0, 0.0, 256.0, p1.maxvelocity);
 					p1.enemyHitBoxes();
+
+					// DUNGEON DOOR CHECK
+					if ( regionDungeonDoor.contains(new Point2D.Double(p1.getX(), p1.getY())) && (p1.currentSegment == 3) ) {
+						System.out.println("Player should enter dungeon!");
+						// do stuff here
+					}
+
+					if (!regionN4.contains(validloc)) {
+						validloc = new Point2D.Double(p1.getX(), p1.getY());
+						System.out.println(validloc);
+					}
+
+					// N4 hard boundaries check
+					if ( regionN4.contains(validloc) && (p1.currentSegment == 3) ) {
+						p1.moveto( validloc.x, validloc.y );
+						System.out.println("moving player");
+					}
+					
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			}
 		}
-		private double speed;
+		private Double speed;
 	}
 	// initiates key actions from panel key responses
 	private static void bindKey(JPanel panel, String input) {
@@ -307,6 +332,7 @@ public class Zelda {
 	public static class BackgroundSound implements Runnable {
 		private String file;
 		private boolean loopAudio;
+		private Thread t = new Thread(this);
 
 		public BackgroundSound(String file, Boolean isLoop) {
 			this.file = file;
@@ -314,7 +340,6 @@ public class Zelda {
 		}
 
 		public void play() {
-	        Thread t = new Thread(this);
 	        t.start();
     	}
 
@@ -417,41 +442,39 @@ public class Zelda {
     // -------- UTILITY FUNCTIONS --------
 	// moveable image objects
 	private static class ImageObject {
-		private double x, y, xwidth, yheight;
-		public double maxvelocity;
+		private Double x, y, xwidth, yheight;
+		public Double maxvelocity;
+		public int currentSegment = 1; // currSegment == what map tile you are on
 
-		public ImageObject(double xinput, double yinput, double xwidthinput,
-			double yheightinput) {
+		public ImageObject(Double xinput, Double yinput, Double xwidthinput,
+			Double yheightinput) {
 			x = xinput;
 			y = yinput;
 			xwidth = xwidthinput;
 			yheight = yheightinput;
 		}
 
-		public double getX() { return x; }
+		public Double getX() { return x; }
 
-		public double getY() { return y; }
+		public Double getY() { return y; }
 
-		public double getWidth() { return xwidth; }
+		public Double getWidth() { return xwidth; }
 
-		public double getHeight() { return yheight; }
+		public Double getHeight() { return yheight; }
 
 		//public double getAngle() { return angle; }
 
-		public void move(double xinput, double yinput) {
+		public void move(Double xinput, Double yinput) {
 			x = x + xinput; 
 			y = y + yinput;
 		}
 
-		public void moveto(double xinput, double yinput) {
+		public void moveto(Double xinput, Double yinput) {
 			x = xinput; 
 			y = yinput;
 		}
 
-
-
 		public void enemyHitBoxes() throws IOException {
-
 			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() < 49 && p1.getY() > 6) {
 				if (isHittingEnemy == false && heart3alreadyDied == false) {
 					System.out.println("got hit OUCH");
@@ -459,17 +482,9 @@ public class Zelda {
 					heart3alreadyDied = true;
 					heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart.png"));
 				}
-
-
-
 			}
+		}
 
-
-
-
-			}
-
-		int currentSegment = 1;
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
 
 
@@ -537,7 +552,7 @@ public class Zelda {
 				moveto((leftEdge+5), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 3;
-				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
+				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png")); // tile with dungeon entrance
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
@@ -558,6 +573,21 @@ public class Zelda {
 		return atop;
 	}
 
+	private static ArrayList<Point2D.Double> loadRegion(BufferedImage mapkey, Color regionCOLOR) {
+		ArrayList<Point2D.Double> region = new ArrayList<>();
+		int rgnCol = regionCOLOR.getRGB();
+
+		for (int x = 0; x < WINWIDTH; x++) {
+            for (int y = 0; y < WINHEIGHT; y++) {
+                if (mapkey.getRGB(x, y) == rgnCol) {
+					region.add(new Point2D.Double(x, y));
+				}
+            }
+        }
+
+		return region;
+	}
+
 	// -------- GLOBAL VARIABLES --------
 	private static Boolean endgame;
 	private static Boolean GameOver = false;
@@ -565,20 +595,19 @@ public class Zelda {
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
 	private static Boolean p1dead = false;
 
-
 	private static Boolean heart3alreadyDied = false;
 	private static Boolean isHittingEnemy = false;
 
-
-
-
 	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
+	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
 
 	private static JButton startButton, quitButton;
 
 	private static Color CELESTIAL = new Color(49, 151, 199);
 	private static Color HIGHLIGHT = new Color(110, 168, 195);
 	private static Color URANIAN = new Color(164, 210, 232);
+	private static Color regionBLUE = new Color(0, 30, 255);
+	private static Color regionRED = new Color(255, 0, 0);
 
 	private static int XOFFSET, YOFFSET, WINWIDTH, WINHEIGHT;
 
@@ -593,6 +622,10 @@ public class Zelda {
 	private static BufferedImage Barriers, Map;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static BufferedImage heart1, heart2, heart3;
+
+	private static ArrayList<Point2D.Double> regionDungeonDoor;
+	private static ArrayList<Point2D.Double> regionN4;
+
 	private static double anim_counter = 1;
 
 	private static Thread t1;
