@@ -247,6 +247,11 @@ public class Zelda {
 					Thread.sleep(10);
 				} catch (InterruptedException e) { }
 
+				if (!regionN4.contains(new Point2D.Double(p1.getX(), p1.getY()))) {
+					validloc = new Point2D.Double(p1.getX(), p1.getY());
+					System.out.println("Region OK! " + validloc);
+				}
+
 				if (upPressed == true) {
 					p1.move(0.0, -speed);
 				}
@@ -273,15 +278,10 @@ public class Zelda {
 						// do stuff here
 					}
 
-					if (!regionN4.contains(validloc)) {
-						validloc = new Point2D.Double(p1.getX(), p1.getY());
-						System.out.println(validloc);
-					}
-
 					// N4 hard boundaries check
-					if ( regionN4.contains(validloc) && (p1.currentSegment == 3) ) {
+					if ( regionN4.contains(new Point2D.Double(p1.getX(), p1.getY())) && (p1.currentSegment == 3) ) {
 						p1.moveto( validloc.x, validloc.y );
-						System.out.println("moving player");
+						System.out.println("Moving player back! " + validloc);
 					}
 					
 				} catch (IOException e) {
