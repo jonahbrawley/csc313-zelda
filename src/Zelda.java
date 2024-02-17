@@ -235,6 +235,7 @@ public class Zelda {
 	// updating player one movement
 	private static class PlayerOneMover implements Runnable {
 		public Point2D.Double validloc = new Point2D.Double();
+		public ArrayList<Point2D.Double> currloc = new ArrayList<>();
 
 		public PlayerOneMover() {
 			speed = 1.0;
@@ -247,7 +248,11 @@ public class Zelda {
 					Thread.sleep(10);
 				} catch (InterruptedException e) { }
 
-				if (!regionN4.contains(new Point2D.Double(p1.getX(), p1.getY()))) {
+				// add players points
+				Point2D.Double point1 = new Point2D.Double(p1.getX(), p1.getY()+30.0);
+				Point2D.Double point2 = new Point2D.Double(p1.getX()+30.0, p1.getY()+30.0);
+
+				if (!regionN4.contains(point1) && !regionN4.contains(point2)) {
 					validloc = new Point2D.Double(p1.getX(), p1.getY());
 					System.out.println("Region OK! " + validloc);
 				}
@@ -273,13 +278,13 @@ public class Zelda {
 					p1.enemyHitBoxes();
 
 					// DUNGEON DOOR CHECK
-					if ( regionDungeonDoor.contains(new Point2D.Double(p1.getX(), p1.getY())) && (p1.currentSegment == 3) ) {
+					if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2)) && (p1.currentSegment == 3) ) {
 						System.out.println("Player should enter dungeon!");
 						// do stuff here
 					}
 
 					// N4 hard boundaries check
-					if ( regionN4.contains(new Point2D.Double(p1.getX(), p1.getY())) && (p1.currentSegment == 3) ) {
+					if ( (regionN4.contains(point1) || regionN4.contains(point2)) && (p1.currentSegment == 3) ) {
 						p1.moveto( validloc.x, validloc.y );
 						System.out.println("Moving player back! " + validloc);
 					}
