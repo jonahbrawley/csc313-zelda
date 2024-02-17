@@ -264,7 +264,7 @@ public class Zelda {
 				}
 
 				try {
-					p1.screenBounds(0.0, 320.0, 0.0, 256.0, p1.maxvelocity);
+					p1.screenBounds(0.0, 320.0, 0.0, 256.0);
 					p1.enemyHitBoxes();
 
 					// DUNGEON DOOR CHECK
@@ -443,7 +443,6 @@ public class Zelda {
 	// moveable image objects
 	private static class ImageObject {
 		private Double x, y, xwidth, yheight;
-		public Double maxvelocity;
 		public int currentSegment = 1; // currSegment == what map tile you are on
 
 		public ImageObject(Double xinput, Double yinput, Double xwidthinput,
@@ -485,7 +484,7 @@ public class Zelda {
 			}
 		}
 
-		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
+		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge) throws IOException {
 
 
 			// Ensure the player stays within the screen boundaries
