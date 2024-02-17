@@ -96,6 +96,12 @@ public class Zelda {
 
 			Barriers = ImageIO.read( new File("res/Zelda/tiles/M3Doubledspace.png") );
             Map = ImageIO.read( new File("res/Zelda/tiles/M3Doubled.png") );
+
+			heart1 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
+			heart2 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
+			heart3 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
+
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -162,8 +168,16 @@ public class Zelda {
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
 
+				System.out.println(p1.getX()+ " " + p1.getY());
+
+
 				g2D.drawImage(Barriers, XOFFSET, YOFFSET, null);
 				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
+
+				g2D.drawImage(heart1, 20, 20, null);
+				g2D.drawImage(heart2, 50, 20, null);
+				g2D.drawImage(heart3, 80, 20, null);
+
 
 				if (leftPressed && anim_counter < 2) {
 					player = walk_left1;
@@ -433,6 +447,13 @@ public class Zelda {
 			y = yinput;
 		}
 
+
+
+//		public void enemyHitBoxes() throws IOException {
+//
+//			if (currentSegment == 1  && p1.getX() )
+//		}
+
 		int currentSegment = 1;
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge, double maxvelocity) throws IOException {
 
@@ -534,6 +555,7 @@ public class Zelda {
 
 	private static BufferedImage Barriers, Map;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
+	private static BufferedImage heart1, heart2, heart3;
 	private static double anim_counter = 1;
 
 	private static Thread t1;

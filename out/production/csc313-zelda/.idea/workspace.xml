@@ -4,68 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92e10e1c-f724-4367-ad7f-ccba46a08ca7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/csc313-zelda.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/CHECKPOINTMULTIPLAYER.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/FINISHLINE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/FINISHLINEMULTIPLAYER.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/MarioKart64.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/NOFINISHLINE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/Rainbow-Road-Mario-Kart-Wii.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroad - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment1 - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment2 - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment3 - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment4 - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadSegment4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadmultiplayer logodesign.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadmultiplayer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadmultiplayerlogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadmultiplayerspace.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadspace.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadspace1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadspace2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadspace3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/largerrainbowroadspace4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/lobbymusic.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/luigiplayer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/luigiplayerboosting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/luigiplayerboosting.xcf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/luigiplayerboostingsmall.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/luigiplayersmall.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayer - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayer copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayerboosting - Copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayerboosting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayerboostingsmall.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/marioplayersmall.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/nitroboostflame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/res/RainbowRoad/rainbowroad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$Animate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$BackgroundMusic.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$ImageObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$KeyPressed.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$KeyReleased.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$MyButton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$PlayerMoverplayer1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$QuitGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$RoundBorder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$Speedometer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda$StartGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/src/src/Zelda.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Zelda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Zelda.java" afterDir="false" />
+    <list default="true" id="92e10e1c-f724-4367-ad7f-ccba46a08ca7" name="Changes" comment="Retarted Movement (Fix)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$BackgroundSound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$ImageObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyPressed.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$KeyReleased.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$MyButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$PlayerOneMover.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$QuitGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$QuitGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$RoundBorder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda$StartGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csc313-zelda/Zelda.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,23 +43,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "11",
-    "last_opened_file_path": "/Users/benjaminbrodwolf/IdeaProjects/csc313-zelda",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/benjaminbrodwolf/IdeaProjects/csc313-zelda&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -123,11 +76,46 @@
       <workItem from="1707758878667" duration="25000" />
       <workItem from="1707758917892" duration="123000" />
       <workItem from="1707759074091" duration="1046000" />
-      <workItem from="1707762137423" duration="460000" />
+      <workItem from="1707762137423" duration="3510000" />
+      <workItem from="1708130055775" duration="315000" />
     </task>
+    <task id="LOCAL-00001" summary="h9h[h[9hpi9h[9pn">
+      <created>1707762686799</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1707762686799</updated>
+    </task>
+    <task id="LOCAL-00002" summary="h9h[h[9hpi9h[9pn">
+      <created>1707762700040</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707762700040</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="h9h[h[9hpi9h[9pn" />
+    <option name="LAST_COMMIT_MESSAGE" value="h9h[h[9hpi9h[9pn" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Zelda.java</url>
+          <line>36</line>
+          <properties class="Zelda" method="initUI">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
