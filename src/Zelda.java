@@ -533,8 +533,8 @@ public class Zelda {
 				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
 			}
 
-			if (currentSegment == 4 && x > rightEdge-35) {
-				moveto((leftEdge+31) - getWidth(), getY());
+			if (currentSegment == 4 && x > rightEdge-31) {
+				moveto((leftEdge+5), getY());
 				System.out.println("Link is touching right");
 				currentSegment = 3;
 				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
