@@ -432,7 +432,11 @@ public class Zelda {
 	public static class BackgroundSound implements Runnable {
 		private String file;
 		private boolean loopAudio;
-		private Thread t = new Thread(this);
+
+		public Thread t = new Thread(this);
+		private File soundFile;
+		private AudioInputStream inputStream;
+		private Clip clip;
 
 		public BackgroundSound(String file, Boolean isLoop) {
 			this.file = file;
@@ -443,16 +447,24 @@ public class Zelda {
 	        t.start();
     	}
 
+		public void stop() {
+			clip.stop();
+		}
+
+		public boolean isPlaying() {
+			return clip.isActive();
+		}
+
     	public void run() {
     		playSound(file);
-    	}
+		}
 
     	private void playSound(String file) {
-    		File soundFile = new File(file);
-	        AudioInputStream inputStream = null;
+    		soundFile = new File(file);
+	        inputStream = null;
 			
 	        try { // get input stream
-				Clip clip = AudioSystem.getClip();
+				clip = AudioSystem.getClip();
 				inputStream = AudioSystem.getAudioInputStream(soundFile);
 				clip.open(inputStream);
 				if (loopAudio) { 
@@ -667,6 +679,12 @@ public class Zelda {
 					moveto(146.0, 230.0);
 					currentSegment = 7;
 				}
+				if (SOUNDS_ENABLED) {
+					if (overworldtheme.isPlaying()) {
+						overworldtheme.stop();
+						dungeontheme.play();
+					}
+				}
 			}
 
 			if (currentSegment == 7){ // second dungeon d4
@@ -714,6 +732,12 @@ public class Zelda {
 					moveto(190.0, 71.0);
 					currentSegment = 3;
 					dungeonComplete = true;
+					if (SOUNDS_ENABLED) {
+						if (dungeontheme.isPlaying()) {
+							dungeontheme.stop();
+							overworldtheme.run();
+						}
+					}
 				}
 			}
 		}
@@ -804,8 +828,9 @@ public class Zelda {
 	private static Boolean heart3alreadyDied = false;
 	private static Boolean isHittingEnemy = false;
 
-	private static Boolean SOUNDS_ENABLED = false; // ENABLE OR DISABLE FOR SOUND
+	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
 	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
+	private static BackgroundSound dungeontheme = new BackgroundSound("res/dungeon.wav", true);
 
 	private static JButton startButton, quitButton;
 
