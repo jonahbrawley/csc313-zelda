@@ -74,14 +74,14 @@ public class Zelda {
 		XOFFSET = 0;
 		YOFFSET = 0;
 		WINWIDTH = 320; // tile width 160 but x2
-        WINHEIGHT = 256; // tile height 128 but x2
+        WINHEIGHT = 255; // tile height 128 but x2
 		endgame = false;
+		dungeonComplete = false;
 
 		p1width = 30;
 		p1height = 30;
-		p1originalX = (double) XOFFSET + Math.floor(((double) WINWIDTH / 2.15)) - (p1width / 2.0);
-		p1originalY = (double) YOFFSET + Math.floor(((double) WINHEIGHT / 1.48)) - (p1height / 2.0);
-		System.out.println("Spawning player at: " + p1originalX + " " + p1originalY);
+		p1originalX = 40.0; // hard coded
+		p1originalY = 60.0; // hard coded
 
 		try { // Get link graphics
 			walk_left1 = ImageIO.read( new File("res/Zelda/player/walk_left1.png") );
@@ -93,8 +93,19 @@ public class Zelda {
 			walk_up1 = ImageIO.read( new File("res/Zelda/player/walk_up1.png") );
 			walk_up2 = ImageIO.read( new File("res/Zelda/player/walk_up2.png") );
 
-			Barriers = ImageIO.read( new File("res/Zelda/tiles/M3Doubledspace.png") );
             Map = ImageIO.read( new File("res/Zelda/tiles/M3Doubled.png") );
+			n3 = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png")); // bottom left
+			n4 = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png")); // bottom middle
+			n5 = ImageIO.read(new File("res/Zelda/tiles/N5Doubled.png")); // bottom middle
+			m3 = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png")); // top left
+			m4 = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png")); // top right
+
+			d5 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT5.png")); // dungeon 1
+            d4 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT4.png")); // dungeon 2
+            d3 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT3.png")); // dungeon 3
+            d2 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT2.png")); // dungeon 4
+            d1 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT1.png")); // dungeon 5
+
 
 			heart1 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 			heart2 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
@@ -120,6 +131,26 @@ public class Zelda {
 			// screen N5
 			BufferedImage N5MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
 			regionN5 = loadRegion(N5MapKey, regionRED);
+
+			// D1
+			BufferedImage D1MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			regionD1 = loadRegion(D1MapKey, regionRED);
+
+			// D2
+			BufferedImage D2MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			regionD2 = loadRegion(D2MapKey, regionRED);
+
+			// D3 
+			BufferedImage D3MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			regionD3 = loadRegion(D3MapKey, regionRED);
+			
+			// D4
+			BufferedImage D4MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			regionD4 = loadRegion(D4MapKey, regionRED);
+			
+			// D5
+			BufferedImage D5MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			regionD5 = loadRegion(D5MapKey, regionRED);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -187,8 +218,9 @@ public class Zelda {
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
 
-				g2D.drawImage(Barriers, 0, 0, null);
-				g2D.drawImage(Map, 0, 0, null);
+				//System.out.println(p1.getX()+ " " + p1.getY());
+
+				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
 
 				g2D.drawImage(heart1, 20, 20, null);
 				g2D.drawImage(heart2, 50, 20, null);
@@ -262,6 +294,7 @@ public class Zelda {
 				Point2D.Double point2 = new Point2D.Double(p1.getX()+30.0, p1.getY()+30.0);
 
 				updateVloc(p1.currentSegment, point1, point2);
+				System.out.println(p1.getX() + " " + p1.getY());
 
 				if (upPressed == true) {
 					p1.move(0.0, -speed);
@@ -297,9 +330,11 @@ public class Zelda {
 
 					if (p1.currentSegment == 3) { // N4
 						// DUNGEON DOOR CHECK
-						if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2)) ) {
-							System.out.println("Player should enter dungeon!");
-							// do stuff here
+						if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2))  && !dungeonComplete) {
+							System.out.println("Player entered dungeon!");
+							p1.moveto(145.0, 230.0);
+							p1.currentSegment = 6;
+							
 						}
 
 						// N4 hard boundaries check
@@ -313,6 +348,38 @@ public class Zelda {
 							p1.moveto( validloc.x, validloc.y );
 						}
 					}
+
+					if (p1.currentSegment == 5) {
+						if ( (regionN5.contains(point1) || regionN5.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}					
+					}
+
+					// if (p1.currentSegment == 6) {
+					// 	if ( (regionD5.contains(point1) || regionD5.contains(point2)) ) {
+					// 		p1.moveto( validloc.x, validloc.y );
+					// 	}		
+					// }
+					// if (p1.currentSegment == 7) {
+					// 	if ( (regionD4.contains(point1) || regionD4.contains(point2)) ) {
+					// 		p1.moveto( validloc.x, validloc.y );
+					// 	}		
+					// }
+					// if (p1.currentSegment == 8) {
+					// 	if ( (regionD3.contains(point1) || regionD3.contains(point2)) ) {
+					// 		p1.moveto( validloc.x, validloc.y );
+					// 	}		
+					// }
+					// if (p1.currentSegment == 9) {
+					// 	if ( (regionD2.contains(point1) || regionD2.contains(point2)) ) {
+					// 		p1.moveto( validloc.x, validloc.y );
+					// 	}		
+					// }
+					// if (p1.currentSegment == 10) {
+					// 	if ( (regionD1.contains(point1) || regionD1.contains(point2)) ) {
+					// 		p1.moveto( validloc.x, validloc.y );
+					// 	}		
+					// }
 					
 					p1.screenBounds(0.0, 320.0, 0.0, 256.0);
 				} catch (IOException e) {
@@ -321,9 +388,11 @@ public class Zelda {
 			}
 		}
 		private Double speed;
+			
 	}
 	// initiates key actions from panel key responses
 	private static void bindKey(JPanel panel, String input) {
+
 		panel.getInputMap(IFW).put(KeyStroke.getKeyStroke("pressed " + input), input + " pressed");
 		panel.getActionMap().put(input + " pressed", new KeyPressed(input));
 
@@ -474,14 +543,14 @@ public class Zelda {
 	// moveable image objects
 	private static class ImageObject {
 		private Double x, y, xwidth, yheight;
-		public int currentSegment = 1; // currSegment == what map tile you are on
-
+		public int currentSegment; 
 		public ImageObject(Double xinput, Double yinput, Double xwidthinput,
 			Double yheightinput) {
 			x = xinput;
 			y = yinput;
 			xwidth = xwidthinput;
 			yheight = yheightinput;
+			currentSegment = 1; // currSegment == what map tile you are on
 		}
 
 		public Double getX() { return x; }
@@ -516,6 +585,8 @@ public class Zelda {
 		}
 
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge) throws IOException {
+			System.out.println("Current segment: " + currentSegment);
+
 			// Ensure the player stays within the screen boundaries
 			if (x < leftEdge) {
 				x = leftEdge;
@@ -529,67 +600,121 @@ public class Zelda {
 				y = bottomEdge - getHeight();
 			}
 
-
-			if (currentSegment == 1 && x > rightEdge - 31) {
-				moveto((leftEdge+5), getY());
-				System.out.println("Move to M4");
-				currentSegment = 2;
-				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			if (currentSegment == 1) { // in top left overworld
+				Map = m3;
+				if (x > rightEdge - 31) {
+					moveto((leftEdge+5), getY());
+					System.out.println("Link is touching right");
+					currentSegment = 2;
+				}
+				if ( y + getHeight() > bottomEdge - 21){
+					moveto(getX(), topEdge + 2);
+					System.out.println("Link is touching bottom");
+					currentSegment = 4;
+				}
+				
 			}
-			if (currentSegment == 1 && y + getHeight() > bottomEdge-21) {
-				moveto(getX(), topEdge+2);
-				System.out.println("Move to N3");
-				currentSegment = 4;
-				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			if (currentSegment == 2) { // in top right overworld
+				Map = m4;
+				if (x < leftEdge + 1){
+					moveto(rightEdge - 32, getY());
+					System.out.println("Move to M3");
+					currentSegment = 1;
+				} 
+				
 			}
-
-//			if (currentSegment == 2 && y + getHeight() > bottomEdge-21) { //Done
-//				moveto(getX(), topEdge+50);
-//				System.out.println("Link is touching bottom");
-//				currentSegment = 3;
-//				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png"));
-//				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-//			}
-			if (currentSegment == 2 && x < leftEdge+1) { //Done
-				moveto(rightEdge-32, getY());
-				System.out.println("Move to M3");
-				currentSegment = 1;
-				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-			}
-
-//			if (currentSegment == 3 && y < topEdge+1) { //Done
-//				moveto(getX(), (bottomEdge-30) - getHeight());
-//				System.out.println("Link is touching top");
-//				currentSegment = 2;
-//				Map = ImageIO.read(new File("res/Zelda/tiles/M4Doubled.png"));
-//				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
-//			}
-
-			if (currentSegment == 3 && x < leftEdge+1) { //Done
-				moveto(rightEdge-32, getY());
-				System.out.println("Move to N3");
-				currentSegment = 4;
-				Map = ImageIO.read(new File("res/Zelda/tiles/N3Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			if (currentSegment == 3) { // in bottom middle overworld
+				Map = n4;
+				if (x < leftEdge + 1){
+					moveto(rightEdge - 32, getY());
+					System.out.println("Move to N3");
+					currentSegment = 4;
+				}
+				if (x > 288.0){
+					moveto(leftEdge + 5, getY());
+					System.out.println("Move to N5");
+					currentSegment = 5;
+				}
 			}
 
-			if (currentSegment == 4 && x > rightEdge-31) {
-				moveto((leftEdge+5), getY());
-				System.out.println("Move to N4");
-				currentSegment = 3;
-				Map = ImageIO.read(new File("res/Zelda/tiles/N4Doubled.png")); // tile with dungeon entrance
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			if (currentSegment == 4) { // in bottom left overworld
+				Map = n3;
+				if (x > rightEdge - 31) {
+					moveto((leftEdge + 5), 189.0);
+					System.out.println("Link is touching right");
+					currentSegment = 3;
+				}
+
+				if (y < topEdge + 1){
+					moveto(getX(), (bottomEdge - 30) - getHeight());
+					System.out.println("Move to M3");
+					currentSegment = 1;
+				}
 			}
 
-			if (currentSegment == 4 && y < topEdge+1) {
-				moveto(getX(), (bottomEdge-30) - getHeight());
-				System.out.println("Move to M3");
-				currentSegment = 1;
-				Map = ImageIO.read(new File("res/Zelda/tiles/M3Doubled.png"));
-				Barriers = ImageIO.read(new File("res/Zelda/tiles/M3Doubledspace.png"));
+			if (currentSegment == 5) { // in bottom right overworld
+				Map = n5;
+				if (x < 5.0 && y > 170.0) {
+					moveto(285.0, 189.0);
+					currentSegment = 3;
+					Map = n4;
+				}
+			}
+
+			if (currentSegment == 6){ // first dungeon d5
+				Map = d5;
+				if (y < 10.0){
+					moveto(146.0, 230.0);
+					currentSegment = 7;
+				}
+			}
+
+			if (currentSegment == 7){ // second dungeon d4
+				Map = d4;
+				if (y < 6.0){
+					moveto(127.0, 220.0);
+					currentSegment = 8;
+				}
+				if (y > 235.0){
+					moveto(146.0, 10.0);
+					currentSegment = 6;
+				}
+			}
+			if (currentSegment == 8){ // third dungeon d3
+				Map = d3;
+				if (y < 6.0){
+					moveto(x, 230.0);
+					currentSegment = 9;
+				}
+				if (y > 235.0){
+					moveto(146.0, 10.0);
+					currentSegment = 7;
+				}
+			}
+
+			if (currentSegment == 9){ // fourth dungeon d2
+				Map = d2;
+				if (y < 6.0){
+					moveto(146.0, 230.0);
+					currentSegment = 10;
+				}
+				if (y > 235.0){
+					moveto(146.0, 10.0);
+					currentSegment = 8;
+				}
+			}
+
+			if (currentSegment == 10){
+				Map = d1;
+				if (y > 235.0){
+					moveto(146.0, 10.0);
+					currentSegment = 9;
+				}
+				if (y < 6.0){
+					moveto(190.0, 71.0);
+					currentSegment = 3;
+					dungeonComplete = true;
+				}
 			}
 		}
 	}
@@ -637,10 +762,40 @@ public class Zelda {
 				validloc = new Point2D.Double(p1.getX(), p1.getY());
 			}
 		}
+		if (currSegment == 5) {
+			if (!regionN5.contains(point1) && !regionN5.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 6) {
+			if (!regionD1.contains(point1) && !regionD1.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 7) {
+			if (!regionD2.contains(point1) && !regionD2.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 8) {
+			if (!regionD3.contains(point1) && !regionD3.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 9) {
+			if (!regionD4.contains(point1) && !regionD4.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 10) {
+			if (!regionD5.contains(point1) && !regionD5.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
 	}
 
 	// -------- GLOBAL VARIABLES --------
-	private static Boolean endgame;
+	private static Boolean endgame, dungeonComplete;
 	private static Boolean GameOver = false;
 	private static boolean gameActive = false;
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
@@ -649,7 +804,7 @@ public class Zelda {
 	private static Boolean heart3alreadyDied = false;
 	private static Boolean isHittingEnemy = false;
 
-	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
+	private static Boolean SOUNDS_ENABLED = false; // ENABLE OR DISABLE FOR SOUND
 	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
 
 	private static JButton startButton, quitButton;
@@ -672,19 +827,17 @@ public class Zelda {
 
 	private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
 
-	private static BufferedImage Barriers, Map;
+	private static BufferedImage Map, n3, n4, n5, m3, m4, d1, d2, d3, d4, d5;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static BufferedImage heart1, heart2, heart3;
 
-	private static ArrayList<Point2D.Double> regionM3;
-	private static ArrayList<Point2D.Double> regionM4;
-	private static ArrayList<Point2D.Double> regionN3;
+	private static ArrayList<Point2D.Double> regionM3, regionM4;
+	private static ArrayList<Point2D.Double> regionN3, regionN4, regionN5;
+	private static ArrayList<Point2D.Double> regionD1, regionD2, regionD3, regionD4, regionD5;
 	private static ArrayList<Point2D.Double> regionDungeonDoor;
-	private static ArrayList<Point2D.Double> regionN4;
-	private static ArrayList<Point2D.Double> regionN5;
 
 	private static double anim_counter = 1;
 	private static Point2D.Double validloc = new Point2D.Double();
 
 	private static Thread t1;
-}
+	}
