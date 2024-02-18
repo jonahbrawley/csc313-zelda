@@ -133,23 +133,23 @@ public class Zelda {
 			regionN5 = loadRegion(N5MapKey, regionRED);
 
 			// D1
-			BufferedImage D1MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			BufferedImage D1MapKey = ImageIO.read(new File("res/Zelda/tiles/T1MapKey.png"));
 			regionD1 = loadRegion(D1MapKey, regionRED);
 
 			// D2
-			BufferedImage D2MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			BufferedImage D2MapKey = ImageIO.read(new File("res/Zelda/tiles/T2MapKey.png"));
 			regionD2 = loadRegion(D2MapKey, regionRED);
 
 			// D3 
-			BufferedImage D3MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			BufferedImage D3MapKey = ImageIO.read(new File("res/Zelda/tiles/T3MapKey.png"));
 			regionD3 = loadRegion(D3MapKey, regionRED);
 			
 			// D4
-			BufferedImage D4MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			BufferedImage D4MapKey = ImageIO.read(new File("res/Zelda/tiles/T4MapKey.png"));
 			regionD4 = loadRegion(D4MapKey, regionRED);
 			
 			// D5
-			BufferedImage D5MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			BufferedImage D5MapKey = ImageIO.read(new File("res/Zelda/tiles/T5MapKey.png"));
 			regionD5 = loadRegion(D5MapKey, regionRED);
 
 		} catch (IOException e) {
@@ -349,37 +349,37 @@ public class Zelda {
 						}
 					}
 
-					if (p1.currentSegment == 5) {
+					if (p1.currentSegment == 5) { // N5
 						if ( (regionN5.contains(point1) || regionN5.contains(point2)) ) {
 							p1.moveto( validloc.x, validloc.y );
 						}					
 					}
 
-					// if (p1.currentSegment == 6) {
-					// 	if ( (regionD5.contains(point1) || regionD5.contains(point2)) ) {
-					// 		p1.moveto( validloc.x, validloc.y );
-					// 	}		
-					// }
-					// if (p1.currentSegment == 7) {
-					// 	if ( (regionD4.contains(point1) || regionD4.contains(point2)) ) {
-					// 		p1.moveto( validloc.x, validloc.y );
-					// 	}		
-					// }
-					// if (p1.currentSegment == 8) {
-					// 	if ( (regionD3.contains(point1) || regionD3.contains(point2)) ) {
-					// 		p1.moveto( validloc.x, validloc.y );
-					// 	}		
-					// }
-					// if (p1.currentSegment == 9) {
-					// 	if ( (regionD2.contains(point1) || regionD2.contains(point2)) ) {
-					// 		p1.moveto( validloc.x, validloc.y );
-					// 	}		
-					// }
-					// if (p1.currentSegment == 10) {
-					// 	if ( (regionD1.contains(point1) || regionD1.contains(point2)) ) {
-					// 		p1.moveto( validloc.x, validloc.y );
-					// 	}		
-					// }
+					if (p1.currentSegment == 6) { // D1
+						if ( (regionD5.contains(point1) || regionD5.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}		
+					}
+					if (p1.currentSegment == 7) {
+						if ( (regionD4.contains(point1) || regionD4.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}		
+					}
+					if (p1.currentSegment == 8) {
+						if ( (regionD3.contains(point1) || regionD3.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}		
+					}
+					if (p1.currentSegment == 9) {
+						if ( (regionD2.contains(point1) || regionD2.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}		
+					}
+					if (p1.currentSegment == 10) {
+						if ( (regionD1.contains(point1) || regionD1.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}		
+					}
 					
 					p1.screenBounds(0.0, 320.0, 0.0, 256.0);
 				} catch (IOException e) {
@@ -792,12 +792,12 @@ public class Zelda {
 			}
 		}
 		if (currSegment == 6) {
-			if (!regionD1.contains(point1) && !regionD1.contains(point2)) {
+			if (!regionD5.contains(point1) && !regionD5.contains(point2)) {
 				validloc = new Point2D.Double(p1.getX(), p1.getY());
 			}
 		}
 		if (currSegment == 7) {
-			if (!regionD2.contains(point1) && !regionD2.contains(point2)) {
+			if (!regionD4.contains(point1) && !regionD4.contains(point2)) {
 				validloc = new Point2D.Double(p1.getX(), p1.getY());
 			}
 		}
@@ -807,12 +807,12 @@ public class Zelda {
 			}
 		}
 		if (currSegment == 9) {
-			if (!regionD4.contains(point1) && !regionD4.contains(point2)) {
+			if (!regionD2.contains(point1) && !regionD2.contains(point2)) {
 				validloc = new Point2D.Double(p1.getX(), p1.getY());
 			}
 		}
 		if (currSegment == 10) {
-			if (!regionD5.contains(point1) && !regionD5.contains(point2)) {
+			if (!regionD1.contains(point1) && !regionD1.contains(point2)) {
 				validloc = new Point2D.Double(p1.getX(), p1.getY());
 			}
 		}
@@ -828,7 +828,7 @@ public class Zelda {
 	private static Boolean heart3alreadyDied = false;
 	private static Boolean isHittingEnemy = false;
 
-	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
+	private static Boolean SOUNDS_ENABLED = false; // ENABLE OR DISABLE FOR SOUND
 	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
 	private static BackgroundSound dungeontheme = new BackgroundSound("res/dungeon.wav", true);
 
