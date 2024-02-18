@@ -321,8 +321,12 @@ public class Zelda {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
+			}
+		}
+		private Double speed;
 	}
 	// initiates key actions from panel key responses
+	private static void bindKey(JPanel panel, String input) {
 		panel.getInputMap(IFW).put(KeyStroke.getKeyStroke("pressed " + input), input + " pressed");
 		panel.getActionMap().put(input + " pressed", new KeyPressed(input));
 
