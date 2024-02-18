@@ -76,6 +76,7 @@ public class Zelda {
 		WINWIDTH = 320; // tile width 160 but x2
         WINHEIGHT = 255; // tile height 128 but x2
 		endgame = false;
+		dungeonComplete = false;
 
 		p1width = 30;
 		p1height = 30;
@@ -329,7 +330,7 @@ public class Zelda {
 
 					if (p1.currentSegment == 3) { // N4
 						// DUNGEON DOOR CHECK
-						if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2)) ) {
+						if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2))  && !dungeonComplete) {
 							System.out.println("Player entered dungeon!");
 							p1.moveto(145.0, 230.0);
 							p1.currentSegment = 6;
@@ -348,11 +349,11 @@ public class Zelda {
 						}
 					}
 
-					// if (p1.currentSegment == 5) {
-					// 	if ( (regionN5.contains(point1) || regionN5.contains(point2)) ) {
-					// 		p1.moveto( validloc.x, validloc.y );
-					// 	}					
-					// }
+					if (p1.currentSegment == 5) {
+						if ( (regionN5.contains(point1) || regionN5.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}					
+					}
 
 					// if (p1.currentSegment == 6) {
 					// 	if ( (regionD5.contains(point1) || regionD5.contains(point2)) ) {
@@ -712,6 +713,7 @@ public class Zelda {
 				if (y < 6.0){
 					moveto(190.0, 71.0);
 					currentSegment = 3;
+					dungeonComplete = true;
 				}
 			}
 		}
@@ -793,7 +795,7 @@ public class Zelda {
 	}
 
 	// -------- GLOBAL VARIABLES --------
-	private static Boolean endgame;
+	private static Boolean endgame, dungeonComplete;
 	private static Boolean GameOver = false;
 	private static boolean gameActive = false;
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
