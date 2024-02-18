@@ -828,7 +828,7 @@ public class Zelda {
 	private static Boolean heart3alreadyDied = false;
 	private static Boolean isHittingEnemy = false;
 
-	private static Boolean SOUNDS_ENABLED = false; // ENABLE OR DISABLE FOR SOUND
+	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
 	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
 	private static BackgroundSound dungeontheme = new BackgroundSound("res/dungeon.wav", true);
 
