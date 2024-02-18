@@ -14,6 +14,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList; // import ArrayList 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Zelda {
 	public Zelda() {
@@ -106,18 +109,22 @@ public class Zelda {
             d2 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT2.png")); // dungeon 4
             d1 = ImageIO.read(new File("res/Zelda/tiles/FaceShrineT1.png")); // dungeon 5
 
+			heart = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
+			no_heart = ImageIO.read(new File("res/Zelda/healthbar/blankheart.png"));
 
-			heart1 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
-			heart2 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
-			heart3 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
+			for (int i=1; i<=healthbarsize; i++) {
+				healthbar.add(heart);
+			}
 
 			// screen M3
 			BufferedImage M3MapKey = ImageIO.read(new File("res/Zelda/tiles/M3MapKey.png"));
 			regionM3 = loadRegion(M3MapKey, regionRED);
+			enemyM3 = loadRegion(M3MapKey, regionGREEN);
 
 			// screen M4
 			BufferedImage M4MapKey = ImageIO.read(new File("res/Zelda/tiles/M4MapKey.png"));
 			regionM4 = loadRegion(M4MapKey, regionRED);
+			enemyM4 = loadRegion(M4MapKey, regionGREEN);
 
 			// screen N3
 			BufferedImage N3MapKey = ImageIO.read(new File("res/Zelda/tiles/N3MapKey.png"));
@@ -131,6 +138,7 @@ public class Zelda {
 			// screen N5
 			BufferedImage N5MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
 			regionN5 = loadRegion(N5MapKey, regionRED);
+			enemyN5 = loadRegion(N5MapKey, regionGREEN);
 
 			// D1
 			BufferedImage D1MapKey = ImageIO.read(new File("res/Zelda/tiles/T1MapKey.png"));
@@ -143,6 +151,7 @@ public class Zelda {
 			// D3 
 			BufferedImage D3MapKey = ImageIO.read(new File("res/Zelda/tiles/T3MapKey.png"));
 			regionD3 = loadRegion(D3MapKey, regionRED);
+			enemyD3 = loadRegion(D3MapKey, regionGREEN);
 			
 			// D4
 			BufferedImage D4MapKey = ImageIO.read(new File("res/Zelda/tiles/T4MapKey.png"));
@@ -218,14 +227,14 @@ public class Zelda {
 			if (gameActive) {
 				Graphics2D g2D = (Graphics2D) g;
 
-				//System.out.println(p1.getX()+ " " + p1.getY());
-
 				g2D.drawImage(Map, XOFFSET, YOFFSET, null);
 
-				g2D.drawImage(heart1, 20, 20, null);
-				g2D.drawImage(heart2, 50, 20, null);
-				g2D.drawImage(heart3, 80, 20, null);
+				int x_hbar_offset = 20;
 
+				for (BufferedImage heart : healthbar) {
+					g2D.drawImage(heart, x_hbar_offset, 20, null);
+					x_hbar_offset = x_hbar_offset + 30;
+				}
 
 				if (leftPressed && anim_counter < 2) {
 					player = walk_left1;
@@ -313,8 +322,6 @@ public class Zelda {
 				}
 
 				try {
-					p1.enemyHitBoxes();
-
 					// boundary checks below
 					if (p1.currentSegment == 1) { // M3
 						if ( (regionM3.contains(point1) || regionM3.contains(point2)) ) {
@@ -380,7 +387,8 @@ public class Zelda {
 							p1.moveto( validloc.x, validloc.y );
 						}		
 					}
-					
+
+					checkHurt(p1.currentSegment, point1, point2);
 					p1.screenBounds(0.0, 320.0, 0.0, 256.0);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
@@ -392,7 +400,6 @@ public class Zelda {
 	}
 	// initiates key actions from panel key responses
 	private static void bindKey(JPanel panel, String input) {
-
 		panel.getInputMap(IFW).put(KeyStroke.getKeyStroke("pressed " + input), input + " pressed");
 		panel.getActionMap().put(input + " pressed", new KeyPressed(input));
 
@@ -583,17 +590,6 @@ public class Zelda {
 		public void moveto(Double xinput, Double yinput) {
 			x = xinput; 
 			y = yinput;
-		}
-
-		public void enemyHitBoxes() throws IOException {
-			if (currentSegment == 1  && p1.getX() > 73 && p1.getX() < 117 && p1.getY() < 49 && p1.getY() > 6) {
-				if (isHittingEnemy == false && heart3alreadyDied == false) {
-					System.out.println("got hit OUCH");
-					isHittingEnemy = true;
-					heart3alreadyDied = true;
-					heart3 = ImageIO.read(new File("res/Zelda/healthbar/blankheart.png"));
-				}
-			}
 		}
 
 		public void screenBounds(double leftEdge, double rightEdge, double topEdge, double bottomEdge) throws IOException {
@@ -818,6 +814,45 @@ public class Zelda {
 		}
 	}
 
+	private static void checkHurt(int currSegment, Point2D.Double point1, Point2D.Double point2) {
+		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+		// only check segments that have enemies
+		if (currSegment == 1) {
+			if ( (enemyM3.contains(point1) || enemyM3.contains(point2)) && !hurtTimer ) {
+				hurtLink = true;
+			}
+		}
+		if (currSegment == 2) {
+			if ( (enemyM4.contains(point1) || enemyM4.contains(point2)) && !hurtTimer ) {
+				hurtLink = true;
+			}
+		}
+		if (currSegment == 5) {
+			if ( (enemyN5.contains(point1) || enemyN5.contains(point2)) && !hurtTimer ) {
+				hurtLink = true;
+			}
+		}
+		if (currSegment == 8) {
+			if ( (enemyD3.contains(point1) || enemyD3.contains(point2)) && !hurtTimer ) {
+				hurtLink = true;
+			}
+		}
+		if (hurtLink) { // in 3 seconds, change isHittingEnemy back to F
+			if (curr_health-1 > 0) {
+				hurtTimer = true;
+				hurtLink = false;
+				healthbar.set(curr_health-1, no_heart);
+				curr_health--;
+
+				scheduler.schedule(() -> hurtTimer = false, 3, TimeUnit.SECONDS);
+			} else {
+				healthbar.set(curr_health-1, no_heart);
+				p1dead = true; // link died
+			}
+		}
+        
+	}
+
 	// -------- GLOBAL VARIABLES --------
 	private static Boolean endgame, dungeonComplete;
 	private static Boolean GameOver = false;
@@ -825,8 +860,8 @@ public class Zelda {
 	private static Boolean upPressed, downPressed, leftPressed, rightPressed;
 	private static Boolean p1dead = false;
 
-	private static Boolean heart3alreadyDied = false;
-	private static Boolean isHittingEnemy = false;
+	private static Boolean hurtTimer = false;
+	private static Boolean hurtLink = false;
 
 	private static Boolean SOUNDS_ENABLED = true; // ENABLE OR DISABLE FOR SOUND
 	private static BackgroundSound overworldtheme = new BackgroundSound("res/overworld.wav", true);
@@ -854,11 +889,18 @@ public class Zelda {
 
 	private static BufferedImage Map, n3, n4, n5, m3, m4, d1, d2, d3, d4, d5;
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
-	private static BufferedImage heart1, heart2, heart3;
+
+	private static BufferedImage heart;
+	private static BufferedImage no_heart;
+	private static ArrayList<BufferedImage> healthbar = new ArrayList<>();
+	private static int curr_health = 3;
+	private static int healthbarsize = 3;
 
 	private static ArrayList<Point2D.Double> regionM3, regionM4;
 	private static ArrayList<Point2D.Double> regionN3, regionN4, regionN5;
 	private static ArrayList<Point2D.Double> regionD1, regionD2, regionD3, regionD4, regionD5;
+
+	private static ArrayList<Point2D.Double> enemyM3, enemyM4, enemyN5, enemyD3;
 	private static ArrayList<Point2D.Double> regionDungeonDoor;
 
 	private static double anim_counter = 1;
