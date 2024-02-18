@@ -711,7 +711,7 @@ public class Zelda {
 				}
 				if (y < 6.0){
 					moveto(190.0, 71.0);
-					currentSegment = 4;
+					currentSegment = 3;
 				}
 			}
 		}
