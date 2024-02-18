@@ -102,10 +102,26 @@ public class Zelda {
 			heart2 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 			heart3 = ImageIO.read(new File("res/Zelda/healthbar/healthheart.png"));
 
-			// save player walkable pixels and dungeon door region into sep arraylists
+			// screen M3
+			BufferedImage M3MapKey = ImageIO.read(new File("res/Zelda/tiles/M3MapKey.png"));
+			regionM3 = loadRegion(M3MapKey, regionRED);
+
+			// screen M4
+			BufferedImage M4MapKey = ImageIO.read(new File("res/Zelda/tiles/M4MapKey.png"));
+			regionM4 = loadRegion(M4MapKey, regionRED);
+
+			// screen N3
+			BufferedImage N3MapKey = ImageIO.read(new File("res/Zelda/tiles/N3MapKey.png"));
+			regionN3 = loadRegion(N3MapKey, regionRED);
+
+			// screen N4
 			BufferedImage N4MapKey = ImageIO.read(new File("res/Zelda/tiles/N4MapKey.png"));
 			regionDungeonDoor = loadRegion(N4MapKey, regionBLUE);
 			regionN4 = loadRegion(N4MapKey, regionRED);
+
+			// screen N5
+			BufferedImage N5MapKey = ImageIO.read(new File("res/Zelda/tiles/N5MapKey.png"));
+			regionN5 = loadRegion(N5MapKey, regionRED);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -233,9 +249,6 @@ public class Zelda {
 
 	// updating player one movement
 	private static class PlayerOneMover implements Runnable {
-		public Point2D.Double validloc = new Point2D.Double();
-		public ArrayList<Point2D.Double> currloc = new ArrayList<>();
-
 		public PlayerOneMover() {
 			speed = 1.0;
 			validloc = new Point2D.Double(p1.getX(), p1.getY());
@@ -251,10 +264,7 @@ public class Zelda {
 				Point2D.Double point1 = new Point2D.Double(p1.getX(), p1.getY()+30.0);
 				Point2D.Double point2 = new Point2D.Double(p1.getX()+30.0, p1.getY()+30.0);
 
-				if (!regionN4.contains(point1) && !regionN4.contains(point2)) {
-					validloc = new Point2D.Double(p1.getX(), p1.getY());
-					System.out.println("Region OK! " + validloc);
-				}
+				updateVloc(p1.currentSegment, point1, point2);
 
 				if (upPressed == true) {
 					p1.move(0.0, -speed);
@@ -273,32 +283,46 @@ public class Zelda {
 				}
 
 				try {
-					p1.screenBounds(0.0, 320.0, 0.0, 256.0);
 					p1.enemyHitBoxes();
 
-					// DUNGEON DOOR CHECK
-					if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2)) && (p1.currentSegment == 3) ) {
-						System.out.println("Player should enter dungeon!");
-						p1.currentSegment = 1;
-						p1.moveto(p1originalX, p1originalY);
-						Map = m3;
+					// boundary checks below
+					if (p1.currentSegment == 1) { // M3
+						if ( (regionM3.contains(point1) || regionM3.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}
 					}
 
-					// N4 hard boundaries check
-					if ( (regionN4.contains(point1) || regionN4.contains(point2)) && (p1.currentSegment == 3) ) {
-						p1.moveto( validloc.x, validloc.y );
-						System.out.println("Moving player back! " + validloc);
+					if (p1.currentSegment == 2) { // M4
+						if ( (regionM4.contains(point1) || regionM4.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}
 					}
 
+					if (p1.currentSegment == 3) { // N4
+						// DUNGEON DOOR CHECK
+						if ( (regionDungeonDoor.contains(point1) || regionDungeonDoor.contains(point2)) ) {
+							System.out.println("Player should enter dungeon!");
+							// do stuff here
+						}
+
+						// N4 hard boundaries check
+						if ( (regionN4.contains(point1) || regionN4.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}
+					}
+
+					if (p1.currentSegment == 4) { // N3
+						if ( (regionN3.contains(point1) || regionN3.contains(point2)) ) {
+							p1.moveto( validloc.x, validloc.y );
+						}
+					}
+					
+					p1.screenBounds(0.0, 320.0, 0.0, 256.0);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-			}
-		}
-		private Double speed;
 	}
 	// initiates key actions from panel key responses
-	private static void bindKey(JPanel panel, String input) {
 		panel.getInputMap(IFW).put(KeyStroke.getKeyStroke("pressed " + input), input + " pressed");
 		panel.getActionMap().put(input + " pressed", new KeyPressed(input));
 
@@ -523,13 +547,13 @@ public class Zelda {
 			}
 			if (currentSegment == 2 && x < leftEdge + 1) { // in top right overworld
 				moveto(rightEdge-32, getY());
-				System.out.println("Link is touching left");
+				System.out.println("Move to M3");
 				currentSegment = 1;
 				Map = m3;
 			}
 			if (currentSegment == 3 && x < leftEdge + 1) { // in bottom left overworld
 				moveto(rightEdge-32, getY());
-				System.out.println("Link is touching left");
+				System.out.println("Move to N3");
 				currentSegment = 4;
 				Map = n3;
 			}
@@ -543,7 +567,7 @@ public class Zelda {
 
 			if (currentSegment == 4 && y < topEdge + 1) {
 				moveto(getX(), (bottomEdge-30) - getHeight());
-				System.out.println("Link is touching top");
+				System.out.println("Move to M3");
 				currentSegment = 1;
 				Map = m3;
 			}
@@ -572,6 +596,29 @@ public class Zelda {
 		return region;
 	}
 
+	private static void updateVloc(int currSegment, Point2D.Double point1, Point2D.Double point2) {
+		if (currSegment == 1) {
+			if (!regionM3.contains(point1) && !regionM3.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 2) {
+			if (!regionM4.contains(point1) && !regionM4.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 3) {
+			if (!regionN4.contains(point1) && !regionN4.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+		if (currSegment == 4) {
+			if (!regionN3.contains(point1) && !regionN3.contains(point2)) {
+				validloc = new Point2D.Double(p1.getX(), p1.getY());
+			}
+		}
+	}
+
 	// -------- GLOBAL VARIABLES --------
 	private static Boolean endgame;
 	private static Boolean GameOver = false;
@@ -593,6 +640,7 @@ public class Zelda {
 
 	private static Color regionBLUE = new Color(0, 30, 255); // dungeon door
 	private static Color regionRED = new Color(255, 0, 0); // where link cannot move
+	private static Color regionGREEN = new Color(24, 255, 0); // enemies!
 
 	private static int XOFFSET, YOFFSET, WINWIDTH, WINHEIGHT;
 
@@ -608,10 +656,15 @@ public class Zelda {
 	private static BufferedImage walk_left1, walk_left2, walk_right1, walk_right2, walk_down1, walk_down2, walk_up1, walk_up2;
 	private static BufferedImage heart1, heart2, heart3;
 
+	private static ArrayList<Point2D.Double> regionM3;
+	private static ArrayList<Point2D.Double> regionM4;
+	private static ArrayList<Point2D.Double> regionN3;
 	private static ArrayList<Point2D.Double> regionDungeonDoor;
 	private static ArrayList<Point2D.Double> regionN4;
+	private static ArrayList<Point2D.Double> regionN5;
 
 	private static double anim_counter = 1;
+	private static Point2D.Double validloc = new Point2D.Double();
 
 	private static Thread t1;
 }
